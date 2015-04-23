@@ -6,6 +6,10 @@
                 <source>nav.home</source>
                 <target>Home</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>nav.submit</source>
+                <target>Submit</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
