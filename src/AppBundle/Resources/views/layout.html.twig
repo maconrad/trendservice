@@ -1,9 +1,13 @@
+{% trans_default_domain "app" %}
 <!DOCTYPE html>
 <html>
 <head>
 
     <title>Bootstrap 101 Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <!-- Bootstrap -->
    {% block stylesheets %}
         {% stylesheets 'css/bootstrap.css' filter='cssrewrite' %}
@@ -18,11 +22,9 @@
 
 <body>
     <h1>Hello, world!</h1>
-    
-    {{ form_start(form, { 'style': 'horizontal' }) }}
-    {{ form_row('tst') }}
-    {{ form_row('asdf') }}
-    {{ form_end(form) }}
+    {{ 'symfony.test'|trans({},'app') }}
+    {{ 'symfony.test2'|trans }}
+    <a href="{{ path('homepage') }}">test</a>
     
     <nav class="navbar navbar-default" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -45,7 +47,17 @@
         </form>
             </div><!-- /.navbar-collapse -->
 </nav>
-    </nav>
+    
+    <button type="button" class="btn btn-default btn-lg">{{ icon('bar-chart') }}
+    {{ icon('camera') }}
+    </button>
+    
+    
+    
+    
+    {{ dump(translations) }}
+    {{ dump(article) }}
+    
  
     <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
     <!-- Include all JavaScripts, compiled by Assetic -->
