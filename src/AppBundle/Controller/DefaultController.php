@@ -16,7 +16,32 @@ class DefaultController extends Controller
     public function indexAction($_locale)
     {
         //$locale = $request->getLocale();
-        return $this->render('AppBundle:Default:home.html.twig');
+        /*
+        $em = $this->getDoctrine()->getManager();
+        $repo = $this->getDoctrine()->getRepository('AppBundle:GeneralText');
+        $brewery = $repo->findOneByTitle('home_brewery');
+        $brewery->setTranslatableLocale($_locale);
+        $repository = $em->getRepository('Gedmo\Translatable\Entity\Translation');
+        $translations = $repository->findTranslations($brewery);
+        $brewery->setTranslatableLocale($_locale);
+        $em->refresh($brewery);
+        */
+        
+        $em = $this->getDoctrine()->getManager();
+        $repo = $this->getDoctrine()->getRepository('AppBundle:GeneralText');
+        $brewery = $repo->findOneByTitle('home_brewery');
+        $repository = $em->getRepository('Gedmo\Translatable\Entity\Translation');
+        if(!is_null($brewery))
+        {
+            $translations = $repository->findTranslations($brewery);
+            $brewery->setTranslatableLocale($_locale);
+            $em->refresh($brewery);
+        }
+        
+        return $this->render('AppBundle:Default:home.html.twig', array(
+                'translations' => $translations,
+                'brewery' => $brewery,
+            ));
     }
     
     /**
@@ -25,6 +50,7 @@ class DefaultController extends Controller
     public function aboutAction($_locale)
     {
         //$locale = $request->getLocale();
+        
         return $this->render('AppBundle:Default:about.html.twig');
     }
     
@@ -50,15 +76,15 @@ class DefaultController extends Controller
         $em->flush();
         */
 
-        /*
-        $article->setTitle('Titel in de');
-        $article->setContent('Inhalt in de');
-        $article->setTranslatableLocale('de'); // change locale
+        
+        $article = $em->find('AppBundle\Entity\GeneralText', 2 /*article id*/);
+        $article->setTitle('home_brewery');
+        $article->setContent('Brewery');
+        $article->setTranslatableLocale('en'); // change locale
         $em->persist($article);
         $em->flush();
-        */
         
-        $article = $em->find('AppBundle\Entity\GeneralText', 1 /*article id*/);
+        
         $repository = $em->getRepository('Gedmo\Translatable\Entity\Translation');
         if(!is_null($article))
         {

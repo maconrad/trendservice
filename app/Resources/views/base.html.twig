@@ -12,6 +12,10 @@
                 <link rel="stylesheet" media="screen" href="{{ asset_url }}" />
             {% endstylesheets %}
     
+            {% stylesheets '@AppBundle/Resources/css/application.css' filter='cssrewrite' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+            
             <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
             {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
    
