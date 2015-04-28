@@ -7,8 +7,32 @@
                 <target>Home</target>
             </trans-unit>
             <trans-unit id="2">
-                <source>nav.submit</source>
-                <target>Submit</target>
+                <source>nav.about</source>
+                <target>Über uns</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>nav.beers</source>
+                <target>Biere</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>nav.event</source>
+                <target>Event</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>nav.contact</source>
+                <target>Kontakt</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>nav.accomodation</source>
+                <target>Unterkunft</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>nav.login</source>
+                <target>Einloggen</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>nav.brewery</source>
+                <target>Brauerei</target>
             </trans-unit>
         </body>
     </file>

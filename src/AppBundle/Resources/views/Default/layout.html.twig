@@ -1,10 +1,12 @@
 {% extends '::base.html.twig' %}
-{% trans_default_domain "app" %}
 
-
+{% block navigation %}
+    {% include 'AppBundle:Default:navigation.html.twig' %}
+{% endblock %}
+    
 {% block body %}
     {# parent() #}
-    {% include 'AppBundle::navigation.html.twig' %}
+    
            
     <!-- /move to external template -->
     <h1>Hello, world!</h1>
