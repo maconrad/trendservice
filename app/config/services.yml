@@ -4,6 +4,10 @@ parameters:
 #    parameter_name: value
 
 services:
+    #php app/console debug:container
+    my_translator:
+        class: AppBundle\Services\TranslationService
+        arguments: ["@logger","@request_stack","@doctrine.orm.entity_manager"]
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

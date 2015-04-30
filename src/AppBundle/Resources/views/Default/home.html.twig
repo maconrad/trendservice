@@ -12,8 +12,9 @@
     <h1>Hello, world!</h1>
     {# 'symfony.test'|trans({},'app') #}
     -->
-    {{ dump(translations) }}
-    {{ dump(brewery) }}
+    {# dump(translations) #}
+    {# dump(brewery) #}
+    {{ dump(home) }}
     <!-- Page Content -->
     <div class="container">
 
@@ -46,7 +47,7 @@
                         <img src="{{ asset_url }}" alt="" />
                     {% endimage %}
                     <div class="caption">
-                        <h3>{{ icon('glass') }} {{ brewery.content }} </h3>
+                        <h3>{{ icon('glass') }} {{ home.home_brewery }} {# brewery.content #} </h3>
                         <p>Das auf 1600 M.ü.M gelegene Brauhaus mit Blick auf das Bergpanorama rund um Zermatt. Einzigartig.</p>
                         <p>
                             <a href="#" class="btn btn-default">Mehr Informationen</a>

@@ -6,7 +6,10 @@ use Symfony\Component\HttpFoundation\Request as Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\GeneralText as GeneralText;
+use Gedmo\Translatable\Entity\Repository\TranslationRepository;
+
 use Monolog\Logger;
+use AppBundle\Services\TranslationService;
 
 class DefaultController extends Controller
 {
@@ -15,32 +18,17 @@ class DefaultController extends Controller
      */
     public function indexAction($_locale)
     {
-        //$locale = $request->getLocale();
-        /*
-        $em = $this->getDoctrine()->getManager();
-        $repo = $this->getDoctrine()->getRepository('AppBundle:GeneralText');
-        $brewery = $repo->findOneByTitle('home_brewery');
-        $brewery->setTranslatableLocale($_locale);
-        $repository = $em->getRepository('Gedmo\Translatable\Entity\Translation');
-        $translations = $repository->findTranslations($brewery);
-        $brewery->setTranslatableLocale($_locale);
-        $em->refresh($brewery);
-        */
-        
-        $em = $this->getDoctrine()->getManager();
-        $repo = $this->getDoctrine()->getRepository('AppBundle:GeneralText');
-        $brewery = $repo->findOneByTitle('home_brewery');
-        $repository = $em->getRepository('Gedmo\Translatable\Entity\Translation');
-        if(!is_null($brewery))
-        {
-            $translations = $repository->findTranslations($brewery);
-            $brewery->setTranslatableLocale($_locale);
-            $em->refresh($brewery);
-        }
+        /* @var $logger Logger */
+        $logger = $this->get('logger');
+        /* @var $x TranslationService */
+        $x = $this->get('my_translator');
+        $shortWords = array("home_brewery", "bar", "hello", "world");
+        $transis = $x->getTranslations($shortWords);
         
         return $this->render('AppBundle:Default:home.html.twig', array(
-                'translations' => $translations,
-                'brewery' => $brewery,
+                /*'translations' => $translations,*/
+                /*'brewery' => $brewery,*/
+                'home' => $transis,
             ));
     }
     
