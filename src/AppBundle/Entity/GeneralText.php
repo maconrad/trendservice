@@ -24,7 +24,6 @@ class GeneralText {
     private $id;
     
     /**
-     * @Gedmo\Translatable
      * @ORM\Column(name="title", type="string", length=256)
      */
     private $title;

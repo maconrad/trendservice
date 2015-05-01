@@ -16,6 +16,7 @@
     {# dump(brewery) #}
     {{ dump(home) }}
     {{ dump(entries) }}
+    {{ dump(assoc) }}
     {# dump(app.request.basepath) #}
 
     <!-- Page Content -->
@@ -36,7 +37,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Ihr Brauhaus im Oberwallis
+                    {{ home.home_brewery }}
                 </h1>
             </div>
         </div>
@@ -52,7 +53,7 @@
                             <h3>{{ icon(entry.icon) }} {{ entry.title }} </h3>
                             <p>{{ entry.content }}</p>
                             <p>
-                                <a href="{{ path(entry.route, {'_locale': app.request.locale}) }}" class="btn btn-default">Mehr Informationen</a>
+                                <a href="{{ path(entry.route, {'_locale': app.request.locale}) }}" class="btn btn-default">{{ entry.buttonText }}</a>
                             </p>
                         </div>
                     </div>
@@ -105,7 +106,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Sunnnegg Brauerei - 2015</p>
+                    <p>Copyright &copy; Sunnegg {{ home.all_brewery }} - 2015</p>
                 </div>
             </div>
         </footer>

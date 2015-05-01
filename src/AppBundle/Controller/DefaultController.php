@@ -26,21 +26,26 @@ class DefaultController extends Controller
         
         //Fixed parts that need to be translated for this Website
         // those were not worth an entry so we put them into general text
-        $shortWords = array("home_brewery", "bar", "hello", "world");
+        $shortWords = array("home_brewery", "all_brewery", "hello", "world");
         $transis = $translator->getTranslations($shortWords);
         
         $em = $this->getDoctrine()->getManager();
         $entries = array();
         
+        
         /* @var $repo EntryRepository */
         $repo = $em->getRepository('AppBundle:Entry');
         $entries = $repo->findByType('home_thumbnail');
+        //TODO Verify if translated
+        $assoc = $repo->findByTypeIncludingEntryTexts('test_assoc');
+        //$assoc = $repo->findByTypeIncludingEntryTextsBySubtype('test_assoc','test_sub_assoc2');
         
         return $this->render('AppBundle:Default:home.html.twig', array(
                 /*'translations' => $translations,*/
                 /*'brewery' => $brewery,*/
                 'home' => $transis,
                 'entries' => $entries,
+                'assoc' => $assoc,
             ));
     }
     

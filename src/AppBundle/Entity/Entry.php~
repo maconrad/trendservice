@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
-use AppBundle\Entity\EntryText;
 
 /**
  * Entry 
@@ -313,37 +312,4 @@ class Entry
         $this->texts = new ArrayCollection();
     }
     
-
-    /**
-     * Add texts
-     *
-     * @param EntryText $texts
-     * @return Entry
-     */
-    public function addText(EntryText $texts)
-    {
-        $this->texts[] = $texts;
-
-        return $this;
-    }
-
-    /**
-     * Remove texts
-     *
-     * @param EntryText $texts
-     */
-    public function removeText(EntryText $texts)
-    {
-        $this->texts->removeElement($texts);
-    }
-
-    /**
-     * Get texts
-     *
-     * @return Collection 
-     */
-    public function getTexts()
-    {
-        return $this->texts;
-    }
 }
