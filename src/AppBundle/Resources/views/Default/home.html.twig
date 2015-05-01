@@ -15,6 +15,9 @@
     {# dump(translations) #}
     {# dump(brewery) #}
     {{ dump(home) }}
+    {{ dump(entries) }}
+    {# dump(app.request.basepath) #}
+
     <!-- Page Content -->
     <div class="container">
 
@@ -38,53 +41,24 @@
             </div>
         </div>
        <!-- Page Features -->
+       
         <div class="row text-center">
-
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <!-- <img src="http://placehold.it/800x500" alt=""> -->
-                    {% image '@AppBundle/Resources/public/images/resized_brauhaus2.jpg' %}
-                        <img src="{{ asset_url }}" alt="" />
-                    {% endimage %}
-                    <div class="caption">
-                        <h3>{{ icon('glass') }} {{ home.home_brewery }} {# brewery.content #} </h3>
-                        <p>Das auf 1600 M.ü.M gelegene Brauhaus mit Blick auf das Bergpanorama rund um Zermatt. Einzigartig.</p>
-                        <p>
-                            <a href="#" class="btn btn-default">Mehr Informationen</a>
-                        </p>
+        {% for entry in entries %}
+            {% if entry.type == 'home_thumbnail' %} 
+                <div class="col-md-4 col-sm-6 hero-feature">
+                    <div class="thumbnail">
+                        <img src="{{ asset(entry.imagePath)}}" alt="{{entry.imageDescription}}"/>
+                        <div class="caption">
+                            <h3>{{ icon(entry.icon) }} {{ entry.title }} </h3>
+                            <p>{{ entry.content }}</p>
+                            <p>
+                                <a href="{{ path(entry.route, {'_locale': app.request.locale}) }}" class="btn btn-default">Mehr Informationen</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    {% image '@AppBundle/Resources/public/images/resized_event2.jpg' %}
-                        <img src="{{ asset_url }}" alt="" />
-                    {% endimage %}
-                    <div class="caption">
-                        <h3>{{ icon('paper-plane') }} Ihr Event</h3>
-                        <p>Den Traum vom selber einmal brauen verwirklichen. Wir bieten Braukurse für Firmen und Private.</p>
-                        <p>
-                            <a href="#" class="btn btn-default">Mehr Informationen</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    {% image '@AppBundle/Resources/public/images/resized_sunnegghouse.jpg' %}
-                        <img src="{{ asset_url }}" alt="" />
-                    {% endimage %}
-                    <div class="caption">
-                        <h3>{{ icon('bed') }} Ihre Unterkunft</h3>
-                        <p>Unser Chalet bietet Platz für 8 Personen. Ideal im Sommer zum Wandern, im Winter zum Skifahren.</p>
-                        <p>
-                            <a href="#" class="btn btn-default">Mehr Informationen</a>
-                        </p>
-                    </div>
-                </div>
-            </div>        
+            {% endif %}
+        {% endfor %}
         </div>
 
         <!-- Features Section -->

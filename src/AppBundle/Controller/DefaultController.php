@@ -10,6 +10,7 @@ use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 
 use Monolog\Logger;
 use AppBundle\Services\TranslationService;
+use AppBundle\Entity\EntryRepository;
 
 class DefaultController extends Controller
 {
@@ -21,16 +22,45 @@ class DefaultController extends Controller
         /* @var $logger Logger */
         $logger = $this->get('logger');
         /* @var $x TranslationService */
-        $x = $this->get('my_translator');
+        $translator = $this->get('my_translator');
+        
+        //Fixed parts that need to be translated for this Website
+        // those were not worth an entry so we put them into general text
         $shortWords = array("home_brewery", "bar", "hello", "world");
-        $transis = $x->getTranslations($shortWords);
+        $transis = $translator->getTranslations($shortWords);
+        
+        $em = $this->getDoctrine()->getManager();
+        $entries = array();
+        
+        /* @var $repo EntryRepository */
+        $repo = $em->getRepository('AppBundle:Entry');
+        $entries = $repo->findByType('home_thumbnail');
         
         return $this->render('AppBundle:Default:home.html.twig', array(
                 /*'translations' => $translations,*/
                 /*'brewery' => $brewery,*/
                 'home' => $transis,
+                'entries' => $entries,
             ));
     }
+    
+    /*
+     <div class="col-md-4 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <!-- <img src="http://placehold.it/800x500" alt=""> -->
+                    {% image '@AppBundle/Resources/public/images/resized_brauhaus2.jpg' %}
+                        <img src="{{ asset_url }}" alt="" />
+                    {% endimage %}
+                    <div class="caption">
+                        <h3>{{ icon('glass') }} {{ home.home_brewery }} {# brewery.content #} </h3>
+                        <p>Das auf 1600 M.ü.M gelegene Brauhaus mit Blick auf das Bergpanorama rund um Zermatt. Einzigartig.</p>
+                        <p>
+                            <a href="#" class="btn btn-default">Mehr Informationen</a>
+                        </p>
+                    </div>
+                </div>
+            </div> 
+     */
     
     /**
      * @Route("/{_locale}/about", name="about", requirements={"_locale" = "en|de|fr|nl"})
