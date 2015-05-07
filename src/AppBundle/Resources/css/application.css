@@ -19,6 +19,15 @@ body {
     opacity: 0.8;
 }
 
+.my-carouselh-icon {
+    position: absolute;
+    top: 50%;
+}
+
+.carousel-inner > .item > img {
+    margin: 0 auto;
+}
+
 /* Home Page Carousel */
 
 header.carousel {

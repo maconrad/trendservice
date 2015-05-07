@@ -17,6 +17,7 @@
     {{ dump(home) }}
     {{ dump(entries) }}
     {{ dump(assoc) }}
+    {{ dump(app.user) }}
     {# dump(app.request.basepath) #}
 
     <!-- Page Content -->
@@ -55,6 +56,14 @@
                             <p>
                                 <a href="{{ path(entry.route, {'_locale': app.request.locale}) }}" class="btn btn-default">{{ entry.buttonText }}</a>
                             </p>
+                           {% if app.user %}
+                            <p>
+                                <a href="{{ path('adminEditSingleEntry', {'_locale': 'de', 'id':entry.id}) }}" class="btn btn-default">Edit de</a>
+                                <a href="{{ path('adminEditSingleEntry', {'_locale': 'en', 'id':entry.id}) }}" class="btn btn-default">Edit en</a>
+                                <a href="{{ path('adminEditSingleEntry', {'_locale': 'fr', 'id':entry.id}) }}" class="btn btn-default">Edit fr</a>
+                                <a href="{{ path('adminEditSingleEntry', {'_locale': 'nl', 'id':entry.id}) }}" class="btn btn-default">Edit nl</a>
+                            </p>
+                           {% endif %}
                         </div>
                     </div>
                 </div>

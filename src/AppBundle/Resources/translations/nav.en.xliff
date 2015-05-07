@@ -34,6 +34,10 @@
                 <source>nav.brewery</source>
                 <target>Brewery</target>
             </trans-unit>
+            <trans-unit id="9">
+                <source>nav.logout</source>
+                <target>Logout</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

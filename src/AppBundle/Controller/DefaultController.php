@@ -15,6 +15,19 @@ use AppBundle\Entity\EntryRepository;
 class DefaultController extends Controller
 {
     /**
+     * @Route("/", name="homepage")
+     */
+    public function homepageAction(Request $request)
+    {
+        $locale = $request->getLocale();
+        //somehow this did not work, always had a double slash at the end...
+        // unfortunately like this we have no verification
+        //return $this->redirectToRoute('home');
+        return $this->redirect($locale.'/home');
+        //return $this->redirectToRoute('homepage');
+    }
+    
+    /**
      * @Route("/{_locale}/home", name="home", requirements={"_locale" = "en|de|fr|nl"})
      */
     public function indexAction($_locale)
@@ -36,7 +49,7 @@ class DefaultController extends Controller
         /* @var $repo EntryRepository */
         $repo = $em->getRepository('AppBundle:Entry');
         $entries = $repo->findByType('home_thumbnail');
-        //TODO Verify if translated
+        
         $assoc = $repo->findByTypeIncludingEntryTexts('test_assoc');
         //$assoc = $repo->findByTypeIncludingEntryTextsBySubtype('test_assoc','test_sub_assoc2');
         
@@ -49,23 +62,40 @@ class DefaultController extends Controller
             ));
     }
     
-    /*
-     <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <!-- <img src="http://placehold.it/800x500" alt=""> -->
-                    {% image '@AppBundle/Resources/public/images/resized_brauhaus2.jpg' %}
-                        <img src="{{ asset_url }}" alt="" />
-                    {% endimage %}
-                    <div class="caption">
-                        <h3>{{ icon('glass') }} {{ home.home_brewery }} {# brewery.content #} </h3>
-                        <p>Das auf 1600 M.ü.M gelegene Brauhaus mit Blick auf das Bergpanorama rund um Zermatt. Einzigartig.</p>
-                        <p>
-                            <a href="#" class="btn btn-default">Mehr Informationen</a>
-                        </p>
-                    </div>
-                </div>
-            </div> 
+    /**
+     * @Route("/{_locale}/beers", name="beers", requirements={"_locale" = "en|de|fr|nl"})
      */
+    public function beerAction($_locale)
+    {
+        /* @var $logger Logger */
+        $logger = $this->get('logger');
+        /* @var $x TranslationService */
+        $translator = $this->get('my_translator');
+        
+        //Fixed parts that need to be translated for this Website
+        // those were not worth an entry so we put them into general text
+        $shortWords = array("hello", "world");
+        $transis = $translator->getTranslations($shortWords);
+        
+        $em = $this->getDoctrine()->getManager();
+        $entries = array();
+        
+        
+        /* @var $repo EntryRepository */
+        $repo = $em->getRepository('AppBundle:Entry');
+        $entries = $repo->findByType('beers_entry');
+        
+        //$assoc = $repo->findByTypeIncludingEntryTexts('test_assoc');
+        //$assoc = $repo->findByTypeIncludingEntryTextsBySubtype('test_assoc','test_sub_assoc2');
+        
+        return $this->render('AppBundle:Default:beers.html.twig', array(
+                /*'translations' => $translations,*/
+                /*'brewery' => $brewery,*/
+                'generaltranslation' => $transis,
+                'entries' => $entries,
+                //'assoc' => $assoc,
+            ));
+    }
     
     /**
      * @Route("/{_locale}/about", name="about", requirements={"_locale" = "en|de|fr|nl"})
@@ -78,7 +108,7 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/app/example", name="homepage")
+     * @Route("/app/example", name="homepageExample")
      */
     public function indexAction2()
     {

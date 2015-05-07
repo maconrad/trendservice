@@ -8,6 +8,19 @@ services:
     my_translator:
         class: AppBundle\Services\TranslationService
         arguments: ["@logger","@request_stack","@doctrine.orm.entity_manager"]
+    
+    appbundle.form.type.entry:
+        class: AppBundle\Form\Type\EntryType
+        tags:
+            - { name: form.type, alias: entry }
+    
+    appbundle.form.type.entry:
+        class: AppBundle\Form\Type\EntryTextType
+        tags:
+            - { name: form.type, alias: entryText }
+
+
+
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

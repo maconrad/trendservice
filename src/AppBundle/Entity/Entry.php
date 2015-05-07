@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
+use Symfony\Component\Validator\Constraint as Assert;
+
 use AppBundle\Entity\EntryText;
 
 /**
@@ -31,6 +33,7 @@ class Entry
     /**
      * @var string
      *
+     * 
      * @ORM\Column(name="title", type="string", length=255)
      * @Gedmo\Translatable
      */
@@ -96,7 +99,7 @@ class Entry
      * 
      * Holds a collection of additonal text entries.
      * 
-     * @ORM\OneToMany(targetEntity="EntryText", mappedBy="entry")
+     * @ORM\OneToMany(targetEntity="EntryText", mappedBy="entry", fetch="EAGER")
      */
     private $texts;
 
@@ -187,7 +190,7 @@ class Entry
     }
     
     /**
-     * Set $imageDescription
+     * Set imageDescription
      *
      * @param string $imageDescription
      * @return Entry

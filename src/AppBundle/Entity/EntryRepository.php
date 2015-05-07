@@ -14,6 +14,45 @@ class EntryRepository extends EntityRepository
 {
     
     /*
+     * NOTE: Not working / not implemented
+     *  Eager loading did not work
+     * Finds an entry by id including its additional Textes
+     *  normally they would be loaded lazily when accessed.
+     *  Loads all additonal Textes
+     */
+    public function findByIDIncludingEntryTexts($id)
+    {      
+        //join means no lazy loading -> Entry and EntryText are loaded
+        // at the same query, no proxy object
+        /*
+        $repo = $this->createQueryBuilder('e')
+            ->leftjoin('e.texts','eT')
+            ->where('e.id = :id')
+            ->setParameter('id', $id);
+        $qry = $repo->getQuery();
+        
+        //eager loading did not work somehow...
+        $qry->setFetchMode('AppBundle\Entity\Entry', 'texts', 
+                            \Doctrine\ORM\Mapping\ClassMetadata::FETCH_EAGER);
+       
+        
+        ->createQuery(
+            'SELECT e, eT FROM AppBundle:Entry e
+            JOIN e.texts eT
+            WHERE e.id = :id'
+        )->setParameter('id', $id);
+    
+        try {
+            return $qry->getOneOrNullResult();
+        } 
+        catch (\Doctrine\ORM\NoResultException $e){
+            return $e;
+        }
+        */
+        return null;
+    }
+    
+    /*
      * Finds an entry by type including its additional Textes
      *  normally they would be loaded lazily when accessed.
      *  Loads all additonal Textes
