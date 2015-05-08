@@ -49,7 +49,8 @@ class EntryType extends AbstractType{
     public function setDefaultOptions(OptionsResolverInterface $resolver) 
     {
         $resolver->setDefaults(array(
-        'data_class' => 'AppBundle\Entity\Entry',
+            'data_class' => 'AppBundle\Entity\Entry',
+            'attr'=>array('novalidate'=>'novalidate')
         ));
     }
     

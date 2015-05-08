@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use AppBundle\Entity\EntryRepository;
 use AppBundle\Entity\Entry;
 use AppBundle\Entity\SubEntry;
@@ -37,37 +39,62 @@ class AdminController extends Controller {
         /* @var $logger Logger */
         $logger = $this->get('logger');
         
+        //Get Entity Manager
         $em = $this->getDoctrine()->getManager();
-            
         /* @var $repo EntryRepository */
         $repo = $em->getRepository('AppBundle:Entry');
         /* @var $entry Entry */
         $entry = $repo->findOneById($id);
         
+        if (!$entry) {
+            //throw $this->createNotFoundException('No Entry found for id '.$id);
+            return new Response("no entry found for".$id);
+        }
+        
+        //Get original subEntries for comparsion
+        $originalSubEntries = new ArrayCollection();
+
+        // Create an ArrayCollection of the current Tag objects in the database
+        foreach ($entry->getSubEntries() as $subEntry) {
+            $originalSubEntries->add($subEntry);
+        }
+        
         $form = $this->createForm(new EntryType(),$entry);
         
+        //When initialy loading the page handleRequest recognizes thas
+        // the form was not submitted and does nothing
         $form->handleRequest($request);
         
+        //Is valid returns false if the form was not submitted
+        // +asserts are checked
+        // TODO Insert Asserts
         if($form->isValid())
         {
-            //form processing
-            //TODO
+             // check if entry does not contain subentry anymore
+            foreach ($originalSubEntries as $subEntry) {
+                if (false === $entry->getSubEntries()->contains($subEntry)) {
+                    // remove subEntry
+                    $em->remove($subEntry);
+                }
+            }
+            //Save our changes
+            $em->persist($entry);
+            $em->flush();
+
+            // redirect back to some edit page
+            return $this->redirectToRoute('adminEditSingleEntry', array(
+                'id' => $id,
+                '_locale' => $request->getLocale(),
+            ));
         }
         
-        if(is_null($entry))
-        {
-            return new Response("no entry found for".$id);
-            //TODO return 404
-        }
-        else{
-            //TODO: Create form class with restrictions and collections
-            return $this->render('AppBundle:admin:adminEditSingle.html.twig', array(
-                    /*'translations' => $translations,*/
-                    'entry' => $entry,
-                    'form' => $form->createView(),
-                ));
-        }
-        
+        //If we didn't already update the entry, we are going to display it
+        //TODO: Create form class with restrictions and collections
+        return $this->render('AppBundle:admin:adminEditSingle.html.twig', array(
+                /*'translations' => $translations,*/
+                'entry' => $entry,
+                'form' => $form->createView(),
+            ));
     }
     
     /**

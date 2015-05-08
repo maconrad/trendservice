@@ -33,6 +33,7 @@ class SubEntryType extends AbstractType{
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\SubEntry',
+            'attr'=>array('novalidate'=>'novalidate')
         ));
     }
 }

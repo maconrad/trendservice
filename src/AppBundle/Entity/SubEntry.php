@@ -35,12 +35,12 @@ class SubEntry {
      * Translatabe content 
      * 
      * @Gedmo\Translatable
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
     
     /**
-     * @ORM\Column(name="contentNoTrans", type="text")
+     * @ORM\Column(name="contentNoTrans", type="text", nullable=true)
      */
     private $contentNoTrans;
     
@@ -118,7 +118,7 @@ class SubEntry {
      */
     public function setContentNoTrans($contentNoTrans)
     {
-        $this->contentNoTrans = contentNoTrans;
+        $this->contentNoTrans = $contentNoTrans;
 
         return $this;
     }
