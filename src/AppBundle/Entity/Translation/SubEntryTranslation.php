@@ -10,12 +10,12 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractTranslation;
  *
  * @author mconrad
  *
- * @ORM\Table(name="entryText_translations", indexes={
- *      @ORM\Index(name="entryText_translation_idx", columns={"locale", "object_class", "field", "foreign_key"})
+ * @ORM\Table(name="subEntry_translations", indexes={
+ *      @ORM\Index(name="subEntry_translation_idx", columns={"locale", "object_class", "field", "foreign_key"})
  * })
  * @ORM\Entity(repositoryClass="Gedmo\Translatable\Entity\Repository\TranslationRepository")
  */
-class EntryTextTranslation extends AbstractTranslation {
+class SubEntryTranslation extends AbstractTranslation {
     /**
      * All required columns are mapped through inherited superclass
     */

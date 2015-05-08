@@ -12,8 +12,9 @@
     
     <!-- Page Content -->
     <div class="container">
-        {{ dump(entry) }}
-        {{ dump(form.imagepath) }}
+        {# dump(entry) #}
+        {# dump(form.imagepath) #}
+        {{ dump(form.subEntries) }}
 
         {{ form_start(form) }}
             {# form_widget(form) #}
@@ -80,12 +81,40 @@
                     {{ form_errors(form.content) }}
                     {{ form_widget(form.content) }}
                 </div>
-            <div>
+            </div>
             <div class="row">
-                {{ form_end(form) }}
+                <h3>SubEntries</h3>
+            </div>
+            <div class="row">
+                {# iterate over each existing tag and render its only field: name #}
+                <div class="entries" data-prototype="{{ form_widget(form.subEntries.vars.prototype)|e }}">
+                    {# iterate over each existing tag and render its only field: name #}
+                    {% for subEntry in form.subEntries %}
+                        <div class="entry col-md-4">
+                            {{ form_row(subEntry.type) }}
+                            {{ form_row(subEntry.content) }}
+                            {{ form_row(subEntry.contentNoTrans) }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row">
+                <hr>
+                <div class="col-md-12 formfinal">
+                    <hr>
+                    {{ form_end(form) }}
+                </div>
             </div>
     </div>
-
     
 {% endblock %}
+
+{% block javascripts %}
+ {{ parent() }}
+ 
+ {% javascripts '@AppBundle/Resources/public/js/*' %}
+    <script src="{{ asset_url }}"></script>
+ {% endjavascripts %}
+{% endblock %}
+    
 

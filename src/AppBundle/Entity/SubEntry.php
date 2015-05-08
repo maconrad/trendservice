@@ -13,11 +13,11 @@ use Gedmo\Translatable\Translatable;
  *  Fields are also translatable.
  *
  * @author mconrad
- * @ORM\Table("entryText")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\EntryTextRepository")
- * @Gedmo\TranslationEntity(class="AppBundle\Entity\Translation\EntryTextTranslation")
+ * @ORM\Table("subEntry")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\SubEntryRepository")
+ * @Gedmo\TranslationEntity(class="AppBundle\Entity\Translation\SubEntryTranslation")
  */
-class EntryText {
+class SubEntry {
     
     /**
      * @ORM\Id 
@@ -27,21 +27,28 @@ class EntryText {
     private $id;
     
     /**
-     * @ORM\Column(name="title", type="string", length=256)
+     * @ORM\Column(name="type", type="string", length=256)
      */
     private $type;
     
     /**
+     * Translatabe content 
+     * 
      * @Gedmo\Translatable
-     * @ORM\Column(name="text", type="text")
+     * @ORM\Column(name="content", type="text")
      */
-    private $text;
+    private $content;
+    
+    /**
+     * @ORM\Column(name="contentNoTrans", type="text")
+     */
+    private $contentNoTrans;
     
     /**
      *
      * @var Entry
      * 
-     * @ORM\ManyToOne(targetEntity="Entry", inversedBy="texts")
+     * @ORM\ManyToOne(targetEntity="Entry", inversedBy="subEntries")
      * @ORM\JoinColumn(name="entry_id", referencedColumnName="id") 
      */
     protected $entry;
@@ -61,7 +68,7 @@ class EntryText {
      * Set type
      *
      * @param string $type
-     * @return EntryText
+     * @return SubEntry
      */
     public function setType($type)
     {
@@ -81,33 +88,56 @@ class EntryText {
     }
 
     /**
-     * Set text
+     * Set content that is translatable
      *
-     * @param string $text
-     * @return EntryText
+     * @param string $content
+     * @return SubEntry
      */
-    public function setText($text)
+    public function setContent($content)
     {
-        $this->text = $text;
+        $this->content = $content;
 
         return $this;
     }
 
     /**
-     * Get text
+     * Get content that is translatable
      *
      * @return string 
      */
-    public function getText()
+    public function getContent()
     {
-        return $this->text;
+        return $this->content;
+    }
+    
+    /**
+     * Set contentNoTrans that is not translatable
+     *
+     * @param string $contentNoTrans
+     * @return SubEntry
+     */
+    public function setContentNoTrans($contentNoTrans)
+    {
+        $this->contentNoTrans = contentNoTrans;
+
+        return $this;
+    }
+
+    /**
+     * Get contentNoTrans that is not translatable
+     *
+     * @return string 
+     */
+    public function getContentNoTrans()
+    {
+        return $this->contentNoTrans;
     }
 
     /**
      * Set entry
      *
      * @param Entry $entry
-     * @return EntryText
+     * @return SubEntry
      */
     public function setEntry(Entry $entry = null)
     {

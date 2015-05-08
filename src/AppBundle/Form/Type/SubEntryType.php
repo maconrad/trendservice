@@ -11,13 +11,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  *
  * @author mconrad
  */
-class EntryTextType extends AbstractType{
+class SubEntryType extends AbstractType{
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('type')
-            ->add('text');
+            ->add('content')
+            ->add('contentNoTrans');;
     }
     
      /*
@@ -31,7 +32,7 @@ class EntryTextType extends AbstractType{
     public function setDefaultOptions(OptionsResolverInterface $resolver) 
     {
         $resolver->setDefaults(array(
-        'data_class' => 'AppBundle\Entity\EntryText',
+            'data_class' => 'AppBundle\Entity\SubEntry',
         ));
     }
 }

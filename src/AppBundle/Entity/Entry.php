@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 use Symfony\Component\Validator\Constraint as Assert;
 
-use AppBundle\Entity\EntryText;
+use AppBundle\Entity\SubEntry;
 
 /**
  * Entry 
@@ -99,9 +99,9 @@ class Entry
      * 
      * Holds a collection of additonal text entries.
      * 
-     * @ORM\OneToMany(targetEntity="EntryText", mappedBy="entry", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="SubEntry", mappedBy="entry", fetch="EAGER", cascade={"persist"})
      */
-    private $texts;
+    private $subEntries;
 
      /**
      * @Gedmo\Locale
@@ -313,40 +313,42 @@ class Entry
     }
     
     public function __construct() {
-        $this->texts = new ArrayCollection();
+        $this->subEntries = new ArrayCollection();
     }
     
 
     /**
-     * Add texts
+     * Add SubEntry
      *
-     * @param EntryText $texts
+     * @param SubEntry $subEntry
      * @return Entry
      */
-    public function addText(EntryText $texts)
+    public function addSubEntry(SubEntry $subEntry)
     {
-        $this->texts[] = $texts;
+        $subEntry->setEntry($this);
+        
+        $this->subEntries[] = $subEntry;
 
         return $this;
     }
 
     /**
-     * Remove texts
+     * Remove subEntry
      *
-     * @param EntryText $texts
+     * @param SubEntry $subEntry
      */
-    public function removeText(EntryText $texts)
+    public function removeSubEntry(SubEntry $subEntry)
     {
-        $this->texts->removeElement($texts);
+        $this->subEntries->removeElement($subEntry);
     }
 
     /**
-     * Get texts
+     * Get SubEntries
      *
      * @return Collection 
      */
-    public function getTexts()
+    public function getSubEntries()
     {
-        return $this->texts;
+        return $this->subEntries;
     }
 }

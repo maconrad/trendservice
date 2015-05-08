@@ -26,7 +26,12 @@ class EntryType extends AbstractType{
             ->add('route')
             ->add('imagepath')
             ->add('imageDescription')
-            ->add('texts','collection',array('type' => new EntryTextType()))
+            ->add('subEntries','collection',array(
+                'type' => new SubEntryType(),
+                'allow_add'    => true, //so we can dynamically add fields, otherwise exception
+                'by_reference' => false, //handling via doctrine easier
+                'allow_delete' => true, //dynamic deletion otherwise not allowed
+                ))
             //->add('dueDate', null, array('widget' => 'single_text'))
             // otherwise every entry must be mapped
             //>add('dueDate', null, array('mapped' => false))

@@ -64,7 +64,7 @@ class EntryRepository extends EntityRepository
         $query = $this->getEntityManager()
         ->createQuery(
             'SELECT e, eT FROM AppBundle:Entry e
-            JOIN e.texts eT
+            JOIN e.subEntries eT
             WHERE e.type = :type'
         )->setParameter('type', $type);
     
@@ -88,7 +88,7 @@ class EntryRepository extends EntityRepository
         $query = $this->getEntityManager()
         ->createQuery(
             'SELECT e, eT FROM AppBundle:Entry e
-            JOIN e.texts eT
+            JOIN e.subEntries eT
             WHERE e.type = :type AND eT.type = :subtype'
         )->setParameter('type', $type)
          ->setParameter('subtype', $subtype);
