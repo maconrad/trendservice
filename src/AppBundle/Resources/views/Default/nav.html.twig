@@ -12,6 +12,18 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{ path('home', {'_locale': app.request.locale}) }}">{{ 'nav.home'|trans }}</a>
+                <a class="navbar-brand" href="{{ path('home', {'_locale': 'de'}) }}">
+                    <img class="img-responsive img-hover img-related" src="{{ asset('/bundles/app/images/ch.png')}}" alt="">
+                </a>
+                <a class="navbar-brand" href="{{ path('home', {'_locale': 'en'}) }}">
+                    <img class="img-responsive img-hover img-related" src="{{ asset('/bundles/app/images/us.png')}}" alt="">
+                </a>
+                <a class="navbar-brand" href="{{ path('home', {'_locale': 'fr'}) }}">
+                    <img class="img-responsive img-hover img-related" src="{{ asset('/bundles/app/images/fr.png')}}" alt="">
+                </a>
+                <a class="navbar-brand" href="{{ path('home', {'_locale': 'nl'}) }}">
+                    <img class="img-responsive img-hover img-related" src="{{ asset('/bundles/app/images/nl.png')}}" alt="">
+                </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -38,4 +50,5 @@
         </div>
         <!-- /.container -->
     </nav>
+    
 </div>

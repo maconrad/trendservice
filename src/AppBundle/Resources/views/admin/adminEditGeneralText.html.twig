@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% if form is defined %}
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% endif %}
+    
+{% block navigation %}
+    {% include 'AppBundle:Default:nav.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    
+    <br>
+    <!-- Page Content -->
+    <div class="container">
+        {# dump(entry) #}
+        {# dump(form.imagepath) #}
+        {# dump(form) #}
+        
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-2 col-sm-3">
+                {{ form_label(form.title) }}
+            </div>
+            <div class="col-md-4 col-sm-3">
+                {{ form_errors(form.title) }}
+                {{ form_widget(form.title) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-3">
+                {{ form_label(form.content) }}
+            </div>
+            <div class="col-md-4 col-sm-3">
+                {{ form_errors(form.content) }}
+                {{ form_widget(form.content) }}
+            </div>
+        </div>
+        <div class="row">
+            <hr>
+            <div class="col-md-12">
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+
+{% block javascripts %}
+ {{ parent() }}
+ 
+ {% javascripts '@AppBundle/Resources/public/js/*' %}
+    <script src="{{ asset_url }}"></script>
+ {% endjavascripts %}
+{% endblock %}

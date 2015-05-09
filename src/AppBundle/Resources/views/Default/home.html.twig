@@ -6,44 +6,47 @@
 {% endblock %}
     
 {% block body %}
-     
-    <!-- /move to external template 
+    {# Twig macros #}
+    {% from 'AppBundle:admin:macro.html.twig' import inputEditButtons as inputEditButtons %}
+    {# if macro would have been defined in the same template use:
+        {{ _self.inputEditButtons('adminEditSingleEntry',entry.id) }}
+    #}
+    
     {# parent() #}
-    <h1>Hello, world!</h1>
     {# 'symfony.test'|trans({},'app') #}
-    -->
     {# dump(translations) #}
     {# dump(brewery) #}
-    {{ dump(home) }}
-    {{ dump(entries) }}
-    {{ dump(assoc) }}
-    {{ dump(app.user) }}
+    {# dump(home) #}
+    {# dump(entries) #}
+    {# dump(assoc) #}
+    {# dump(app.user) #}
     {# dump(app.request.basepath) #}
 
     <!-- Page Content -->
     <div class="container">
-
+        
         <!-- Jumbotron Header -->
         {% image '@AppBundle/Resources/public/images/idyllisch_3_done.jpg' %}                    
-        <header class="jumbotron hero-spacer" style="background-image:url('{{ asset_url }}');">
-            <p style="visibility: hidden;">a</p>
-            <p style="visibility: hidden;">a</p>
-            <p style="visibility: hidden;">a</p>
-            <p style="visibility: hidden;">a</p>
+        <header class="jumbotron hero-spacer backgroundImage" style="background-image:url('{{ asset_url }}');">
+
         </header>
         {% endimage %}
        <hr>
         
-        <!-- Marketing Icons Section -->
+        <!-- Jumbotron -->
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
                     {{ home.home_brewery }}
+                    {# If we are the admin, add some edit buttons #}
+                    {% if app.user %}
+                        <p>{{ inputEditButtons('adminEditGeneralText', 'home_brewery') }}</p>
+                    {% endif %}
                 </h1>
             </div>
         </div>
-       <!-- Page Features -->
-       
+                
+       <!-- Home -->
         <div class="row text-center">
         {% for entry in entries %}
             {% if entry.type == 'home_thumbnail' %} 
@@ -53,16 +56,10 @@
                         <div class="caption">
                             <h3>{{ icon(entry.icon) }} {{ entry.title }} </h3>
                             <p>{{ entry.content }}</p>
-                            <p>
-                                <a href="{{ path(entry.route, {'_locale': app.request.locale}) }}" class="btn btn-default">{{ entry.buttonText }}</a>
-                            </p>
+                            <p><a href="{{ path(entry.route, {'_locale': app.request.locale}) }}" class="btn btn-default">{{ entry.buttonText }}</a></p>
+                           {# If we are the admin, add some edit buttons #}
                            {% if app.user %}
-                            <p>
-                                <a href="{{ path('adminEditSingleEntry', {'_locale': 'de', 'id':entry.id}) }}" class="btn btn-default">Edit de</a>
-                                <a href="{{ path('adminEditSingleEntry', {'_locale': 'en', 'id':entry.id}) }}" class="btn btn-default">Edit en</a>
-                                <a href="{{ path('adminEditSingleEntry', {'_locale': 'fr', 'id':entry.id}) }}" class="btn btn-default">Edit fr</a>
-                                <a href="{{ path('adminEditSingleEntry', {'_locale': 'nl', 'id':entry.id}) }}" class="btn btn-default">Edit nl</a>
-                            </p>
+                            <p>{{ inputEditButtons('adminEditSingleEntry',entry.id) }}</p>
                            {% endif %}
                         </div>
                     </div>
@@ -116,16 +113,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <p>Copyright &copy; Sunnegg {{ home.all_brewery }} - 2015</p>
+                    {% if app.user %}
+                        <p>{{ inputEditButtons('adminEditGeneralText', 'all_brewery') }}</p>
+                    {% endif %}
                 </div>
             </div>
         </footer>
 
     </div>
-
     <!-- /.container -->
-
-    
-    {# dump(translations) #}
-    
-    
 {% endblock %}

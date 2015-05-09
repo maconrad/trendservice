@@ -14,6 +14,7 @@ use AppBundle\Entity\EntryRepository;
 use AppBundle\Entity\Entry;
 use AppBundle\Entity\SubEntry;
 use AppBundle\Form\Type\EntryType;
+use AppBundle\Form\Type\GeneralTextType;
 use Monolog\Logger;
 
 /**
@@ -37,7 +38,7 @@ class AdminController extends Controller {
     public function editEntryAction($id, Request $request)
     {
         /* @var $logger Logger */
-        $logger = $this->get('logger');
+        //$logger = $this->get('logger');
         
         //Get Entity Manager
         $em = $this->getDoctrine()->getManager();
@@ -126,7 +127,39 @@ class AdminController extends Controller {
      */
     public function editGeneralTextAction($id, Request $request)
     {
-        //TODO
+        //Param given is not really the id but the title, 
+        // but to handle things in a general way with twig its called id
+        $title = $id;
+        //Get Entity Manager
+        $em = $this->getDoctrine()->getManager();
+        /* @var $repo EntryRepository */
+        $repo = $em->getRepository('AppBundle:GeneralText');
+        /* @var $item GeneralText */
+        $item = $repo->findOneByTitle($title);
+        
+        if (!$item) {
+            return new Response("no entry found for".$title);
+        }
+        
+        $form = $this->createForm(new GeneralTextType(),$item);
+        $form->handleRequest($request);
+        if($form->isValid())
+        {
+            //Save our changes
+            $em->persist($item);
+            $em->flush();
+
+            // redirect back to some edit page
+            return $this->redirectToRoute('adminEditGeneralText', array(
+                'id' => $title,
+                '_locale' => $request->getLocale(),
+            ));
+        }
+        
+        //If we didn't already update the item, we are going to display it
+        return $this->render('AppBundle:admin:adminEditGeneralText.html.twig', array(
+                'form' => $form->createView(),
+            ));
     }
     
     /**
