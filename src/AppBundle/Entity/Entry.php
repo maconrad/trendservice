@@ -33,8 +33,7 @@ class Entry
     /**
      * @var string
      *
-     * 
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255, nullable=false)
      * @Gedmo\Translatable
      */
     private $title;
@@ -42,7 +41,7 @@ class Entry
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="content", type="text", nullable=false)
      * @Gedmo\Translatable
      */
     private $content;
@@ -52,21 +51,21 @@ class Entry
      *  Example usage would be that we have a type home_thumbnail
      *  so we can use it in twig to only render this part
      *
-     * @ORM\Column(name="type", type="string", length=255)
+     * @ORM\Column(name="type", type="string", length=255, nullable=false)
      */
     private $type;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="imagePath", type="string", length=255)
+     * @ORM\Column(name="imagePath", type="string", length=255, nullable=true)
      */
     private $imagePath;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="imageDescription", type="string", length=255)
+     * @ORM\Column(name="imageDescription", type="string", length=255, nullable=true)
      * @Gedmo\Translatable
      */
     private $imageDescription;
@@ -74,21 +73,21 @@ class Entry
     /**
      * @var string
      *
-     * @ORM\Column(name="icon", type="string", length=255)
+     * @ORM\Column(name="icon", type="string", length=255, nullable=true)
      */
     private $icon;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="route", type="string", length=255)
+     * @ORM\Column(name="route", type="string", length=255, nullable=true)
      */
     private $route;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="buttonText", type="string", length=255)
+     * @ORM\Column(name="buttonText", type="string", length=255, nullable=true)
      * @Gedmo\Translatable
      */
     private $buttonText;

@@ -38,6 +38,14 @@
                 <source>nav.logout</source>
                 <target>Ausloggen</target>
             </trans-unit>
+            <trans-unit id="10">
+                <source>nav.newEntry</source>
+                <target>Neuer Eintrag</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>nav.newGeneralText</source>
+                <target>Neuer Kurztext</target>
+            </trans-unit>   
         </body>
     </file>
 </xliff>

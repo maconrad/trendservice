@@ -18,8 +18,8 @@ class EntryType extends AbstractType{
     {
         $builder
             //->add('id')
-            ->add('type')
-            ->add('title')
+            ->add('type',null, array('required' => true,) )
+            ->add('title' ,null, array('required' => true,))
             ->add('content')
             ->add('buttontext')
             ->add('icon')
@@ -50,7 +50,7 @@ class EntryType extends AbstractType{
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Entry',
-            'attr'=>array('novalidate'=>'novalidate')
+            //'attr'=>array('novalidate'=>'novalidate')
         ));
     }
     

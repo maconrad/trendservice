@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\EntryRepository;
 use AppBundle\Entity\Entry;
 use AppBundle\Entity\SubEntry;
+use AppBundle\Entity\GeneralText;
 use AppBundle\Form\Type\EntryType;
 use AppBundle\Form\Type\GeneralTextType;
 use Monolog\Logger;
@@ -60,6 +61,38 @@ class AdminController extends Controller {
             $originalSubEntries->add($subEntry);
         }
         
+        return $this->handleEntry($em, $entry, $originalSubEntries, $request);
+    }
+    
+    /**
+     * @Route("/admin/entry/new", name="adminNewEntry")
+     */
+    public function newEntryAction(Request $request)
+    {
+        $entry = new Entry();
+
+        //Get Entity Manager
+        $em = $this->getDoctrine()->getManager();
+        
+        //no existing subentries on new entry
+        $originalSubEntries = new ArrayCollection();
+
+        return $this->handleEntry($em, $entry, $originalSubEntries, $request);
+    }
+    
+    /**
+     * Handles the transmission of the form regardless of update/new
+     *  for en Entry
+     * 
+     * @param DoctrineEntityManager $em
+     * @param Entry $entry
+     * @param ArrayCollection $originalSubEntries
+     * @param Requst $request
+     * @return type
+     */
+    private function handleEntry($em, Entry $entry, ArrayCollection $originalSubEntries, 
+            Request $request)
+    {
         $form = $this->createForm(new EntryType(),$entry);
         
         //When initialy loading the page handleRequest recognizes thas
@@ -71,7 +104,8 @@ class AdminController extends Controller {
         // TODO Insert Asserts
         if($form->isValid())
         {
-             // check if entry does not contain subentry anymore
+            //check if entry does not contain subentry anymore
+            // needed when editing an existing entry to update subitems that were removed
             foreach ($originalSubEntries as $subEntry) {
                 if (false === $entry->getSubEntries()->contains($subEntry)) {
                     // remove subEntry
@@ -84,44 +118,20 @@ class AdminController extends Controller {
 
             // redirect back to some edit page
             return $this->redirectToRoute('adminEditSingleEntry', array(
-                'id' => $id,
+                'id' => $entry->getId(),
                 '_locale' => $request->getLocale(),
             ));
         }
         
         //If we didn't already update the entry, we are going to display it
-        //TODO: Create form class with restrictions and collections
-        return $this->render('AppBundle:admin:adminEditSingle.html.twig', array(
+        //TODO: Create form class with restrictions
+        return $this->render('AppBundle:admin:adminEntry.html.twig', array(
                 /*'translations' => $translations,*/
                 'entry' => $entry,
                 'form' => $form->createView(),
             ));
     }
-    
-    /**
-     * @Route("/admin/Entry/new", name="adminNewEntry")
-     */
-    public function newEntryAction(Request $request)
-    {
-        $entry = new Entry();
-
-        $subEntry1 = new SubEntry();
         
-        $entry->getSubEntries()->add($subEntry1);
-
-        $form = $this->createForm(new EntryType(), $entry);
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            // ... maybe do some form processing, like saving the Task and Tag objects
-        }
-
-        return $this->render('AppBundle:admin:newEntry.html.twig', array(
-            'form' => $form->createView(),
-        ));
-    }
-    
     /**
      * @Route("/admin/generalText/edit/{_locale}/{id}", name="adminEditGeneralText", requirements={"_locale" = "en|de|fr|nl"})
      */
@@ -141,25 +151,7 @@ class AdminController extends Controller {
             return new Response("no entry found for".$title);
         }
         
-        $form = $this->createForm(new GeneralTextType(),$item);
-        $form->handleRequest($request);
-        if($form->isValid())
-        {
-            //Save our changes
-            $em->persist($item);
-            $em->flush();
-
-            // redirect back to some edit page
-            return $this->redirectToRoute('adminEditGeneralText', array(
-                'id' => $title,
-                '_locale' => $request->getLocale(),
-            ));
-        }
-        
-        //If we didn't already update the item, we are going to display it
-        return $this->render('AppBundle:admin:adminEditGeneralText.html.twig', array(
-                'form' => $form->createView(),
-            ));
+        return $this->handleGeneralText($em, $item, $request);
     }
     
     /**
@@ -167,7 +159,45 @@ class AdminController extends Controller {
      */
     public function newGeneralTextAction(Request $request)
     {
-        //TODO
+        /* @var $item GeneralText */
+        $item = new GeneralText();
+        //Get Entity Manager
+        $em = $this->getDoctrine()->getManager();
+        
+        return $this->handleGeneralText($em, $item, $request);
+        
+    }
+    
+    /**
+     * Handles the transmission of the form regardless of update/new
+     *  for a GeneralText
+     * 
+     * @param DoctrineEntityManager $em
+     * @param GeneralText $item
+     * @param Request $request
+     * @return a Form where we can enter the information for a new GeneralText
+     */
+    private function handleGeneralText($em, GeneralText $item, Request $request)
+    {
+        $form = $this->createForm(new GeneralTextType(),$item);
+        $form->handleRequest($request);
+        if($form->isValid())
+        {
+            //Save our new item
+            $em->persist($item);
+            $em->flush();
+
+            // redirect back to some edit page
+            return $this->redirectToRoute('adminEditGeneralText', array(
+                'id' => $item->getTitle(),
+                '_locale' => $request->getLocale(),
+            ));
+        }
+        
+        //If we didn't already update the item, we are going to display it
+        return $this->render('AppBundle:admin:adminGeneralText.html.twig', array(
+                'form' => $form->createView(),
+            ));
     }
     
 }
