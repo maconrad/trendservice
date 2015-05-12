@@ -4,3 +4,23 @@
     <a href="{{ path(route, {'_locale': 'fr', 'id':id}) }}" class="btn btn-default">Edit fr</a>
     <a href="{{ path(route, {'_locale': 'nl', 'id':id}) }}" class="btn btn-default">Edit nl</a>
 {% endmacro %}
+
+{% macro inputList(entry) %}
+    <ul>
+    {% for subentry in entry.subentries if subentry.type=='property_text' %}
+        <li>{{ subentry.content }}</li>
+    {% endfor %}
+    </ul>
+{% endmacro %}
+
+{% macro inputSubtitle(entry) %}
+    {% for subentry in entry.subentries if subentry.type=='property_subtitle' %}
+        <h5>{{ subentry.content }}</h5>
+    {% endfor %}
+{% endmacro %}
+
+{% macro inputSubtitle2(entry) %}
+    {% for subentry in entry.subentries if subentry.type=='property_subtitle2' %}
+        <h4>{{ subentry.content }}</h4>
+    {% endfor %}
+{% endmacro %}

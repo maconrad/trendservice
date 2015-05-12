@@ -48,7 +48,9 @@ class DefaultController extends Controller
         
         /* @var $repo EntryRepository */
         $repo = $em->getRepository('AppBundle:Entry');
-        $entries = $repo->findByType('home_thumbnail');
+        $entries1 = $repo->findByType('home_thumbnail');
+        $entries2 = $repo->findByType('home_catcher');
+        $entries = array_merge($entries1, $entries2);
         
         $assoc = $repo->findByTypeIncludingEntryTexts('test_assoc');
         //$assoc = $repo->findByTypeIncludingEntryTextsBySubtype('test_assoc','test_sub_assoc2');
@@ -74,7 +76,7 @@ class DefaultController extends Controller
         
         //Fixed parts that need to be translated for this Website
         // those were not worth an entry so we put them into general text
-        $shortWords = array("hello", "world");
+        $shortWords = array("beers_are_us", "world");
         $transis = $translator->getTranslations($shortWords);
         
         $em = $this->getDoctrine()->getManager();

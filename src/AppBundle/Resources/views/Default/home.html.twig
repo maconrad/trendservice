@@ -8,6 +8,8 @@
 {% block body %}
     {# Twig macros #}
     {% from 'AppBundle:admin:macro.html.twig' import inputEditButtons as inputEditButtons %}
+    {% from 'AppBundle:admin:macro.html.twig' import inputList as inputList %}
+    
     {# if macro would have been defined in the same template use:
         {{ _self.inputEditButtons('adminEditSingleEntry',entry.id) }}
     #}
@@ -40,7 +42,7 @@
                     {{ home.home_brewery }}
                     {# If we are the admin, add some edit buttons #}
                     {% if app.user %}
-                        <p>{{ inputEditButtons('adminEditGeneralText', 'home_brewery') }}</p>
+                        <p>{{ inputEditButtons(adminGeneralTextRoute, 'home_brewery') }}</p>
                     {% endif %}
                 </h1>
             </div>
@@ -59,7 +61,7 @@
                             <p><a href="{{ path(entry.route, {'_locale': app.request.locale}) }}" class="btn btn-default">{{ entry.buttonText }}</a></p>
                            {# If we are the admin, add some edit buttons #}
                            {% if app.user %}
-                            <p>{{ inputEditButtons('adminEditSingleEntry',entry.id) }}</p>
+                            <p>{{ inputEditButtons(adminEditEntryRoute,entry.id) }}</p>
                            {% endif %}
                         </div>
                     </div>
@@ -70,25 +72,24 @@
 
         <!-- Features Section -->
         <div class="row">
+        {% for entry in entries %}
+         {% if entry.type == 'home_catcher' %} 
             <div class="col-lg-12">
-                <h2 class="page-header">Modern Business Features</h2>
+                <h2 class="page-header">{{ entry.title }}</h2>
             </div>
             <div class="col-md-6">
-                <p>The Modern Business template by Start Bootstrap includes:</p>
-                <ul>
-                    <li><strong>Bootstrap v3.2.0</strong>
-                    </li>
-                    <li>jQuery v1.11.0</li>
-                    <li>Font Awesome v4.1.0</li>
-                    <li>Working PHP contact form with validation</li>
-                    <li>Unstyled page elements for easy customization</li>
-                    <li>17 HTML pages</li>
-                </ul>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
+                <p>{{ entry.content }}</p>
+                {{ inputList(entry) }}
             </div>
             <div class="col-md-6">
-                <img class="img-responsive" src="http://placehold.it/700x450" alt="">
+                <img class="img-responsive" src="{{ entry.imagepath }}" alt="">
             </div>
+            {% if app.user %}
+                <p>{{ inputEditButtons(adminEditEntryRoute,entry.id) }}</p>
+            {% endif %}
+         {% endif %}
+        {% endfor %}
+            
         </div>
         <!-- /.row -->
 
@@ -98,10 +99,10 @@
         <div class="well">
             <div class="row">
                 <div class="col-md-8">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, expedita, saepe, vero rerum deleniti beatae veniam harum neque nemo praesentium cum alias asperiores commodi.</p>
+                    <p>Lorem ipsum  oder wie das zeug auch hiesst.....</p>
                 </div>
                 <div class="col-md-4">
-                    <a class="btn btn-lg btn-default btn-block" href="#">Call to Action</a>
+                    <a class="btn btn-lg btn-default btn-block" href="#">Kontaktieren</a>
                 </div>
             </div>
         </div>
@@ -114,7 +115,7 @@
                 <div class="col-lg-12">
                     <p>Copyright &copy; Sunnegg {{ home.all_brewery }} - 2015</p>
                     {% if app.user %}
-                        <p>{{ inputEditButtons('adminEditGeneralText', 'all_brewery') }}</p>
+                        <p>{{ inputEditButtons(adminGeneralTextRoute,'all_brewery') }}</p>
                     {% endif %}
                 </div>
             </div>

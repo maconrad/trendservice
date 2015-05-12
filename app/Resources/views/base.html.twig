@@ -24,6 +24,10 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        {# Twig variables #}
+        {% set adminGeneralTextRoute = 'adminEditGeneralText' %}
+        {% set adminEditEntryRoute = 'adminEditSingleEntry' %}
+        
         {% block navigation %}
         
         {% endblock %}
