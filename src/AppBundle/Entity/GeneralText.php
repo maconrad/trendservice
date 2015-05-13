@@ -12,7 +12,7 @@ use Gedmo\Translatable\Translatable;
  * @author mconrad
  * 
  * @ORM\Table(name="generalText")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\GeneralTextRepository")
  * @Gedmo\TranslationEntity(class="AppBundle\Entity\Translation\GeneralTextTranslation")
  */
 class GeneralText {

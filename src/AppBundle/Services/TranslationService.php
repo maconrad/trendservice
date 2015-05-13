@@ -6,6 +6,7 @@ namespace AppBundle\Services;
 use Monolog\Logger;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Doctrine\ORM\EntityManager;
+use AppBundle\Entity\GeneralTextRepository;
 
 /**
  * Description of TranslationHelper
@@ -73,6 +74,44 @@ class TranslationService {
                 $translations = $repoTrans->findTranslations($tmp);
                 $tmp->setTranslatableLocale($locale);
                 $transis[$word] = $tmp->getContent();
+            }
+            else{
+                $this->logger->error("'". $word . "' could not be found in DB, no translation");
+            }
+            
+        }
+        
+        return $transis;
+    }
+    
+    /**
+     * Returns a key-value array in the form of (requestWord - Translation)
+     * 
+     * Usage: Used for Text that does not really belong to an object but
+     *        also needs to be translated in some way.
+     * 
+     * @param string $startsWith - get All strings that start with a certain string
+     */
+    public function getAllTranslations($startsWith)
+    {
+        $request = $this->requestStack->getCurrentRequest();
+        $locale = $request->getLocale();
+       
+        /* @var $repoText GeneralTextRepository */
+        $repoText = $this->em->getRepository('AppBundle:GeneralText');
+        $repoTrans = $this->em->getRepository('Gedmo\Translatable\Entity\Translation');
+        
+        $transis = array();
+        
+        /* @var $generalTexts GeneralText */
+        $generalTexts = $repoText->findByTitleStartsWith($startsWith);
+        
+        foreach ($generalTexts as $generalText) {
+            
+            if (!is_null($generalText)) {
+                $translations = $repoTrans->findTranslations($generalText);
+                $generalText->setTranslatableLocale($locale);
+                $transis[$generalText->getTitle()] = $generalText->getContent();
             }
             else{
                 $this->logger->error("'". $word . "' could not be found in DB, no translation");

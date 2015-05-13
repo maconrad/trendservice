@@ -20,19 +20,24 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">
-                    {{ generaltranslation.beers_are_us }}
-                    {% if app.user %}
-                        <p>{{ inputEditButtons(adminGeneralTextRoute, 'beers_are_us') }}</p>
-                    {% endif %}
-                </h1>
+                <div class="page-header">
+                    <h1>{{ generaltranslation.beers_are_us }}</h1>                
+                        {% if app.user %}
+                            <p>{{ inputEditButtons(adminGeneralTextRoute, 'beers_are_us') }}</p>
+                        {% endif %}
+
+                        {{ generaltranslation.beers_description }}
+                        {% if app.user %}
+                            <p>{{ inputEditButtons(adminGeneralTextRoute, 'beers_description') }}</p>
+                        {% endif %}
+                </div>
             </div>
         </div>
         
         <!-- Item Row -->
         {% for entry in entries %}
          {% if entry.type == 'beers_entry' %}
-        <div class="row">
+        <div class="row thumbnail">
             <div class="col-md-3">
                 <div id="carousel-{{ loop.index0 }}" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
@@ -78,7 +83,7 @@
             </div>
 
             <!-- Text on side -->
-            <div class="col-md-9">
+            <div class="col-md-6">
                 <h3>{{ entry.title }}</h3>
                 {{ inputSubtitle(entry) }}
                 <p>{{ entry.content }}</p>
@@ -93,6 +98,7 @@
         <hr>
          {% endif %}
         {% endfor %}
+    <!-- /.container -->
     </div>
 
     

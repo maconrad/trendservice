@@ -39,7 +39,7 @@ class DefaultController extends Controller
         
         //Fixed parts that need to be translated for this Website
         // those were not worth an entry so we put them into general text
-        $shortWords = array("home_brewery", "all_brewery", "hello", "world");
+        $shortWords = array("home_brewery", "all_brewery", "home_contact_us", "world");
         $transis = $translator->getTranslations($shortWords);
         
         $em = $this->getDoctrine()->getManager();
@@ -71,13 +71,14 @@ class DefaultController extends Controller
     {
         /* @var $logger Logger */
         $logger = $this->get('logger');
-        /* @var $x TranslationService */
+        /* @var $translator TranslationService */
         $translator = $this->get('my_translator');
         
         //Fixed parts that need to be translated for this Website
         // those were not worth an entry so we put them into general text
-        $shortWords = array("beers_are_us", "world");
-        $transis = $translator->getTranslations($shortWords);
+        //$shortWords = array("beers_are_us", "beers_description");
+        //$transis = $translator->getTranslations($shortWords);
+        $transis = $translator->getAllTranslations('beers_');
         
         $em = $this->getDoctrine()->getManager();
         $entries = array();
@@ -102,11 +103,25 @@ class DefaultController extends Controller
     /**
      * @Route("/{_locale}/about", name="about", requirements={"_locale" = "en|de|fr|nl"})
      */
-    public function aboutAction($_locale)
+    public function aboutAction()
     {
-        //$locale = $request->getLocale();
+        /* @var $translator TranslationService */
+        $translator = $this->get('my_translator');
         
-        return $this->render('AppBundle:Default:about.html.twig');
+        $transis = $translator->getAllTranslations('about_');
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        /* @var $repo EntryRepository */
+        $repo = $em->getRepository('AppBundle:Entry');
+        $entriesbrewery = $repo->findByType('about_entry_brewery');
+        $entriesbrewers = $repo->findByType('about_entry_brewer');
+        $entries = array_merge($entriesbrewery, $entriesbrewers);
+        
+       return $this->render('AppBundle:Default:about.html.twig', array(
+                'generaltranslation' => $transis,
+                'entries' => $entries,
+            ));
     }
     
     /**

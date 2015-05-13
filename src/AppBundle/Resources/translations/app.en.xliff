@@ -3,8 +3,8 @@
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
             <trans-unit id="1">
-                <source>symfony.test</source>
-                <target>English for you</target>
+                <source>app.button.contact</source>
+                <target>Contact us</target>
             </trans-unit>
             <trans-unit id="2">
                 <source>symfony.test2</source>

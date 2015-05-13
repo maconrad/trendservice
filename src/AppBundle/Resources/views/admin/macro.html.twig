@@ -24,3 +24,9 @@
         <h4>{{ subentry.content }}</h4>
     {% endfor %}
 {% endmacro %}
+
+{% macro inputSubEntriesParagraph(entry) %}
+    {% for subentry in entry.subentries if subentry.type=='property_paragraph' %}
+        <p>{{ subentry.content }}</p>
+    {% endfor %}
+{% endmacro %}
