@@ -25,7 +25,6 @@
                         {% if app.user %}
                             <p>{{ inputEditButtons(adminGeneralTextRoute, 'beers_are_us') }}</p>
                         {% endif %}
-
                         {{ generaltranslation.beers_description }}
                         {% if app.user %}
                             <p>{{ inputEditButtons(adminGeneralTextRoute, 'beers_description') }}</p>
@@ -35,10 +34,13 @@
         </div>
         
         <!-- Item Row -->
+        {% set counter = 0 %}
         {% for entry in entries %}
          {% if entry.type == 'beers_entry' %}
-        <div class="row thumbnail">
-            <div class="col-md-3">
+             {% set counter = counter + 1 %}
+            <!-- <div class="container --> {# cycle(['pull-left', 'pull-right'], counter) #}
+            <div class="row thumbnail col-md-9 {{ cycle(['pull-left', 'pull-right'], counter) }}">
+                <div class="col-md-4 {{ cycle(['pull-left', 'pull-right'], counter) }}">
                 <div id="carousel-{{ loop.index0 }}" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
@@ -80,22 +82,22 @@
                         </span>
                     </a>
                 </div>
-            </div>
+                </div>
 
-            <!-- Text on side -->
-            <div class="col-md-6">
-                <h3>{{ entry.title }}</h3>
-                {{ inputSubtitle(entry) }}
-                <p>{{ entry.content }}</p>
-                {{ inputSubtitle2(entry) }}
-                {{ inputList(entry) }}
+                <!-- Text on side -->
+                <div class="col-md-8">
+                    <h3>{{ entry.title }}</h3>
+                    {{ inputSubtitle(entry) }}
+                    <p>{{ entry.content }}</p>
+                    {{ inputSubtitle2(entry) }}
+                    {{ inputList(entry) }}
+                </div>
+                {% if app.user %}
+                    <p>{{ inputEditButtons(adminEditEntryRoute, entry.id) }}</p>
+                {% endif %}   
             </div>
-            {% if app.user %}
-                <p>{{ inputEditButtons(adminEditEntryRoute, entry.id) }}</p>
-            {% endif %}
-        </div>
-        <!-- /.row -->
-        <hr>
+            <!-- /.row -->
+            
          {% endif %}
         {% endfor %}
     <!-- /.container -->

@@ -116,7 +116,8 @@ class DefaultController extends Controller
         $repo = $em->getRepository('AppBundle:Entry');
         $entriesbrewery = $repo->findByType('about_entry_brewery');
         $entriesbrewers = $repo->findByType('about_entry_brewer');
-        $entries = array_merge($entriesbrewery, $entriesbrewers);
+        $entriescustomers = $repo->findByType('about_entry_customer');
+        $entries = array_merge($entriesbrewery, $entriesbrewers, $entriescustomers);
         
        return $this->render('AppBundle:Default:about.html.twig', array(
                 'generaltranslation' => $transis,

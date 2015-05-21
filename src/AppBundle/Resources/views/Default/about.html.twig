@@ -7,6 +7,11 @@
 {% block body %}
     {# parent() #}
     {% from 'AppBundle:admin:macro.html.twig' import inputSubEntriesParagraph as inputSubEntriesParagraph %}
+    {% from 'AppBundle:admin:macro.html.twig' import inputEditButtons as inputEditButtons %}
+    {% from 'AppBundle:admin:macro.html.twig' import inputSubEntriesFacebook as inputSubEntriesFacebook %}
+    {% from 'AppBundle:admin:macro.html.twig' import inputSubEntriesLinkedIn as inputSubEntriesLinkedIn %}
+    {% from 'AppBundle:admin:macro.html.twig' import inputSubEntriesXing as inputSubEntriesXing %}
+    
         
     {% dump(generaltranslation) %}
     {% dump(entries) %}
@@ -17,13 +22,16 @@
         <div class="row">
          {% for entry in entries %}
           {% if entry.type == 'about_entry_brewery' %}
-            <div class="col-md-6">
+            <div class="col-md-offset-1 col-md-5">
                 <img class="img-responsive" src="{{ entry.imagepath }}" alt="">
             </div>
             <div class="col-md-6">
                 <h2>{{ entry.title }}</h2>
                 {{ inputSubEntriesParagraph(entry) }}
             </div>
+            {% if app.user %}
+             <p>{{ inputEditButtons(adminEditEntryRoute, entry.id) }}</p>
+            {% endif %}
           {% endif %}
          {% endfor %}
         </div>
@@ -45,15 +53,15 @@
                         </h3>
                         {{ inputSubEntriesParagraph(entry) }}
                         <ul class="list-inline">
-                            <li><a href="#"><i class="fa fa-2x fa-facebook-square"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-2x fa-linkedin-square"></i></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a>
-                            </li>
+                            {{ inputSubEntriesFacebook(entry) }}
+                            {{ inputSubEntriesLinkedIn(entry) }}
+                            {{ inputSubEntriesXing(entry) }}
                         </ul>
                     </div>
                 </div>
+                {% if app.user %}
+                    <p>{{ inputEditButtons(adminEditEntryRoute, entry.id) }}</p>
+                {% endif %}
             </div>
             {% endif %}
            {% endfor %}
@@ -63,12 +71,30 @@
         
      <!-- Our Customers -->
         <div class="row">
-            <div class="col-lg-12">
-                <h2 class="page-header">Our Customers</h2>
+            <div class="col-lg-12 page-header">
+                <h2>{{ generaltranslation.about_customers }}</h2>
+                {% if app.user %}
+                  <p>{{ inputEditButtons(adminGeneralTextRoute, 'about_customers') }}</p>
+                {% endif %}
+                <p>{{ generaltranslation.about_customers_text }}</p>
+                {% if app.user %}
+                  <p>{{ inputEditButtons(adminGeneralTextRoute, 'about_customers_text') }}</p>
+                {% endif %}
             </div>
+        </div>
+        <div class="row">
+           {% for entry in entries %}
+            {% if entry.type == 'about_entry_customer' %}
             <div class="col-md-2 col-sm-4 col-xs-6">
-                <img class="img-responsive customer-img" src="http://placehold.it/500x300" alt="">
+                <h3>{{ entry.title }}</h3>
+                <img class="img-responsive customer-img" src="{{ entry.imagepath }}" alt="">
+                <h5>{{ entry.content }}</h5>
+                {% if app.user %}
+                    <p>{{ inputEditButtons(adminEditEntryRoute, entry.id) }}</p>
+                {% endif %}
             </div>
+            {% endif %}
+           {% endfor %}
         </div>
      
     <!-- /.container -->
