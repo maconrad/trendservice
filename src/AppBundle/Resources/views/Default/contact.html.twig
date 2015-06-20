@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+
+{% block navigation %}
+    {% include 'AppBundle:Default:nav.html.twig' %}
+{% endblock %}
+    
+{% block body %}
+    {# parent() #}
+    {% from 'AppBundle:admin:macro.html.twig' import inputEditButtons as inputEditButtons %}
+        
+    {% dump(generaltranslation) %}
+    {% dump(entries) %}
+    
+    
+    <!-- Content -->
+    <!-- Page Content -->
+    <div class="container">
+        <br>
+        <!-- Content Row -->
+        <div class="row">
+            <!-- Map Column -->
+            <div class="col-md-8">
+                <!-- Embedded Google Map -->
+                <iframe width="600" height="450" frameborder="0" style="border:0"
+src="https://www.google.com/maps/embed/v1/place?q=Gr%C3%A4chen%20chalet%20sunnegg%2C%20Schweiz&key=AIzaSyCZXt8YT44OK-7gvsQNcOkGJLxDukbiYxQ"></iframe>
+                   </div>
+            <!-- Contact Details Column -->
+            <div class="col-md-4">
+                <h3>Details</h3>
+                <p>
+                    Chalet Sunnegg<br>3925 Grächen<br>
+                </p>
+                <p><i class="fa fa-phone"></i> 
+                    <abbr title="Phone">P</abbr>: +41 (0)27 510 21 00</p>
+                <p><i class="fa fa-envelope-o"></i> 
+                    <abbr title="Email">E</abbr>: <a href="mailto:prost@brauerei-sunnegg.ch">prost@brauerei-sunnegg.ch</a>
+                </p>
+                <p><i class="fa fa-clock-o"></i> 
+                    <abbr title="Hours">H</abbr>: {{ generaltranslation.contact_onRequest }}</p>
+                     {% if app.user %}
+                        <p>{{ inputEditButtons(adminGeneralTextRoute,'contact_onRequest') }}</p>
+                    {% endif %}
+                <ul class="list-unstyled list-inline list-social-icons">
+                    <li>
+                        <a href="https://www.facebook.com/Sunnegg"><i class="fa fa-facebook-square fa-2x"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        
+    </div>
+    <!-- /.container -->
+    
+{% endblock %}

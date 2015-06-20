@@ -126,6 +126,72 @@ class DefaultController extends Controller
     }
     
     /**
+     * @Route("/{_locale}/contact", name="contact", requirements={"_locale" = "en|de|fr|nl"})
+     */
+    public function contactAction()
+    {
+        /* @var $translator TranslationService */
+        $translator = $this->get('my_translator');
+        
+        $transis = $translator->getAllTranslations('contact_');
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        /* @var $repo EntryRepository */
+        $repo = $em->getRepository('AppBundle:Entry');
+        $entries = $repo->findByType('contact_entry');
+        
+       return $this->render('AppBundle:Default:contact.html.twig', array(
+                'generaltranslation' => $transis,
+                'entries' => $entries,
+            ));
+    }
+    
+    /**
+     * @Route("/{_locale}/event", name="event", requirements={"_locale" = "en|de|fr|nl"})
+     */
+    public function eventAction()
+    {
+        /* @var $translator TranslationService */
+        $translator = $this->get('my_translator');
+        
+        $transis = $translator->getAllTranslations('event_');
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        /* @var $repo EntryRepository */
+        $repo = $em->getRepository('AppBundle:Entry');
+        $entries = $repo->findByType('event_entry');
+        
+       return $this->render('AppBundle:Default:event.html.twig', array(
+                'generaltranslation' => $transis,
+                'entries' => $entries,
+            ));
+    }
+    
+    /**
+     * @Route("/{_locale}/accomodation", name="accomodation", requirements={"_locale" = "en|de|fr|nl"})
+     */
+    public function accomodationAction()
+    {
+        /* @var $translator TranslationService */
+        $translator = $this->get('my_translator');
+        
+        $transis = $translator->getAllTranslations('accomodation_');
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        /* @var $repo EntryRepository */
+        $repo = $em->getRepository('AppBundle:Entry');
+        $entries = $repo->findByType('accomodation_entry');
+        
+       return $this->render('AppBundle:Default:accomodation.html.twig', array(
+                'generaltranslation' => $transis,
+                'entries' => $entries,
+            ));
+    }
+    
+    /**
      * @Route("/app/example", name="homepageExample")
      */
     public function indexAction2()

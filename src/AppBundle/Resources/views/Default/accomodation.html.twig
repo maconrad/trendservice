@@ -1,0 +1,20 @@
+{% extends '::base.html.twig' %}
+{% trans_default_domain "app" %}
+
+{% block navigation %}
+    {% include 'AppBundle:Default:nav.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    {# dump(entries) #}
+    {# Twig macros #}
+    {% from 'AppBundle:admin:macro.html.twig' import inputEditButtons as inputEditButtons %}
+ 
+    <!-- Content -->
+    <!-- Page Content -->
+    <div class="container">
+        <br>
+        Site under Construction
+    </div>
+    <!-- /.container -->
+{% endblock %}

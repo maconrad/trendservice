@@ -30,15 +30,15 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{{ path('about', {'_locale': app.request.locale}) }}">{{ 'nav.about'|trans }}</a></li>
                     <li><a href="{{ path('beers', {'_locale': app.request.locale}) }}">{{ 'nav.beers'|trans }}</a></li>
-                    <li><a href="contact.html">{{ 'nav.event'|trans }}</a></li>
+                    <li><a href="{{ path('event', {'_locale': app.request.locale}) }}">{{ 'nav.event'|trans }}</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'nav.accomodation'|trans }}<b class="caret"></b></a>
+                        <a href="{{ path('accomodation', {'_locale': app.request.locale}) }}" class="dropdown-toggle" data-toggle="dropdown">{{ 'nav.accomodation'|trans }}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="portfolio-1-col.html">{{ 'nav.brewery'|trans }}</a></li>
-                            <li><a href="portfolio-2-col.html">Beau-Site</a></li>
+                            <li><a href="{{ path('accomodation', {'_locale': app.request.locale}) }}#brewery">{{ 'nav.brewery'|trans }}</a></li>
+                            <li><a href="{{ path('accomodation', {'_locale': app.request.locale}) }}#beausite">Beau-Site</a></li>
                         </ul>
                     </li>
-                    <li><a href="contact.html">{{ 'nav.contact'|trans }}</a></li>
+                    <li><a href="{{ path('contact') }}">{{ 'nav.contact'|trans }}</a></li>
                    {% if not app.user %}
                     <li><a href="{{ path('adminHome') }}">{{ 'nav.login'|trans }}</a></li>
                    {% else %}
