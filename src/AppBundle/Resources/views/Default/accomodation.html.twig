@@ -9,11 +9,39 @@
     {# dump(entries) #}
     {# Twig macros #}
     {% from 'AppBundle:admin:macro.html.twig' import inputEditButtons as inputEditButtons %}
+    {% from 'AppBundle:admin:macro.html.twig' import inputList as inputList %}
+    {% from 'AppBundle:admin:macro.html.twig' import inputSliderImage as inputSliderImage %}
+    {% from 'AppBundle:admin:macro.html.twig' import inputSliderThumb as inputSliderThumb %}
+    
  
     <!-- Content -->
     <!-- Page Content -->
     <div class="container">
         <br>
+        <div class="row">
+        {% for entry in entries %}
+         {% if entry.type == 'accomodation_entry' %} 
+            <div class="col-lg-12">
+                <h2 class="page-header">{{ entry.title }}</h2>
+            </div>
+            <div class="col-md-8">
+                {{ inputSliderImage(entry, loop.index) }}
+                {{ inputSliderThumb(entry, loop.index) }}
+            </div>
+            <div class="col-md-4">
+                <h3>Titel</h3>
+                <p>{{ entry.content }}</p>
+                <h3>Details</h3>
+                {{ inputList(entry) }}
+            </div>
+            {% if app.user %}
+                <p>{{ inputEditButtons(adminEditEntryRoute,entry.id) }}</p>
+            {% endif %}
+         {% endif %}
+        {% endfor %}
+            
+        </div>
+        
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
@@ -50,11 +78,27 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    
+    <!-- Not really cool to have them statically preconfigured... -->
     <script>
         $(document).ready(function(){
             $('.bxslider').bxSlider({
                 pagerCustom: '#bx-pager',
+                adaptiveHeight: true,
+                controls: false,
+                mode: 'fade'
+            });
+        });
+        $(document).ready(function(){
+            $('#slider1').bxSlider({
+                pagerCustom: '#bx-pager1',
+                adaptiveHeight: true,
+                controls: false,
+                mode: 'fade'
+            });
+        });
+        $(document).ready(function(){
+            $('#slider2').bxSlider({
+                pagerCustom: '#bx-pager2',
                 adaptiveHeight: true,
                 controls: false,
                 mode: 'fade'

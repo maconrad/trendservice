@@ -13,6 +13,22 @@
     </ul>
 {% endmacro %}
 
+{% macro inputSliderImage(entry, id) %}
+    <ul class="bxslider" id="slider{{id}}">
+    {% for subentry in entry.subentries if subentry.type=='property_image' %}
+        <li><img src="{{ subentry.contentNotrans }}"/></li>
+    {% endfor %}
+    </ul>
+{% endmacro %}
+
+{% macro inputSliderThumb(entry, id) %}
+    <div id="bx-pager{{id}}">
+    {% for subentry in entry.subentries if subentry.type=='property_image' %}
+        <a data-slide-index="{{ loop.index0 }}" href=""><img src="{{ subentry.contentNotrans|replace({ '.jpg':'_thumb.jpg' }) }}"/></a>
+    {% endfor %}
+    </div>
+{% endmacro %}
+
 {% macro inputSubtitle(entry) %}
     {% for subentry in entry.subentries if subentry.type=='property_subtitle' %}
         <h5>{{ subentry.content }}</h5>
