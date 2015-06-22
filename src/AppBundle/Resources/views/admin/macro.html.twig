@@ -35,6 +35,12 @@
     {% endfor %}
 {% endmacro %}
 
+{% macro inputSubtitle1(entry) %}
+    {% for subentry in entry.subentries if subentry.type=='property_subtitle1' %}
+        <h3>{{ subentry.content }}</h3>
+    {% endfor %}
+{% endmacro %}
+
 {% macro inputSubtitle2(entry) %}
     {% for subentry in entry.subentries if subentry.type=='property_subtitle2' %}
         <h4>{{ subentry.content }}</h4>
