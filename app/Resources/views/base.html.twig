@@ -16,6 +16,10 @@
                 <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
             
+            {% stylesheets 'jquery.bxslider/jquery.bxslider.css' filter='cssrewrite' %}
+                <link rel="stylesheet" media="screen" href="{{ asset_url }}" />
+            {% endstylesheets %}
+            
             <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
             {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
    
@@ -40,6 +44,7 @@
             {% javascripts 
                 'js/jquery.js' 
                 'js/bootstrap.js'
+                'jquery.bxslider/jquery.bxslider.min.js'
             %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
