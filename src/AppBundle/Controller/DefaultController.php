@@ -49,7 +49,7 @@ class DefaultController extends Controller
         /* @var $repo EntryRepository */
         $repo = $em->getRepository('AppBundle:Entry');
         $entries1 = $repo->findByType('home_thumbnail');
-        $entries2 = $repo->findByType('home_catcher');
+        $entries2 = $repo->findByType('bullet_entry_home');
         $entries = array_merge($entries1, $entries2);
         
         $assoc = $repo->findByTypeIncludingEntryTexts('test_assoc');
@@ -155,13 +155,15 @@ class DefaultController extends Controller
         /* @var $translator TranslationService */
         $translator = $this->get('my_translator');
         
-        $transis = $translator->getAllTranslations('event_');
+        $transis = $translator->getAllTranslations('pricing_');
         
         $em = $this->getDoctrine()->getManager();
         
         /* @var $repo EntryRepository */
         $repo = $em->getRepository('AppBundle:Entry');
-        $entries = $repo->findByType('event_entry');
+        $entries1 = $repo->findByType('basic_entry_pricing');
+        $entries2 = $repo->findByType('bullet_entry_pricing');
+        $entries = array_merge($entries1, $entries2);
         
        return $this->render('AppBundle:Default:event.html.twig', array(
                 'generaltranslation' => $transis,

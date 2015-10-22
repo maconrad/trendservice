@@ -49,6 +49,41 @@
     {% endfor %}
 {% endmacro %}
 
+{% macro inputBasicEntry(entry,adminEditEntryRoute) %}
+    {% import _self as functions %}
+    <div class="col-lg-12">
+      <h2 class="page-header">{{ entry.title }}</h2>
+    </div>
+    <div class="col-md-6">
+      <p>{{ entry.content }}</p>
+      {# inputList(entry) #}
+    </div>
+    <div class="col-md-6">
+      <img class="img-responsive" src="{{ entry.imagepath }}" alt="">
+    </div>
+    {% if app.user %}
+      <p>{{ functions.inputEditButtons(adminEditEntryRoute,entry.id) }}</p>
+    {% endif %}
+{% endmacro %}
+
+{% macro inputBulletEntry(entry,adminEditEntryRoute) %}
+    {% import _self as functions %}
+    
+    <div class="col-lg-12">
+        <h2 class="page-header">{{ entry.title }}</h2>
+    </div>
+    <div class="col-md-6">
+        <p>{{ entry.content }}</p>
+        {{ functions.inputList(entry) }}
+    </div>
+    <div class="col-md-6">
+        <img class="img-responsive" src="{{ entry.imagepath }}" alt="">
+    </div>
+    {% if app.user %}
+      <p>{{ functions.inputEditButtons(adminEditEntryRoute,entry.id) }}</p>
+    {% endif %}
+{% endmacro %}
+      
 {% macro inputSubEntriesParagraph(entry) %}
     {% for subentry in entry.subentries if subentry.type=='property_paragraph' %}
         <p>{{ subentry.content }}</p>

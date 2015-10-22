@@ -8,27 +8,19 @@
 {% block body %}
     {# dump(entries) #}
     {# Twig macros #}
-    {% from 'AppBundle:admin:macro.html.twig' import inputEditButtons as inputEditButtons %}
+    {% from 'AppBundle:admin:macro.html.twig' import inputBasicEntry as inputBasicEntry %}
+    {% from 'AppBundle:admin:macro.html.twig' import inputBulletEntry as inputBulletEntry %}
   
     <!-- Page Content -->
     <div class="container">
         <!-- Event Section -->
         <div class="row">
         {% for entry in entries %}
-         {% if entry.type == 'event_entry' %} 
-            <div class="col-lg-12">
-                <h2 class="page-header">{{ entry.title }}</h2>
-            </div>
-            <div class="col-md-6">
-                <p>{{ entry.content }}</p>
-                {# inputList(entry) #}
-            </div>
-            <div class="col-md-6">
-                <img class="img-responsive" src="{{ entry.imagepath }}" alt="">
-            </div>
-            {% if app.user %}
-                <p>{{ inputEditButtons(adminEditEntryRoute,entry.id) }}</p>
-            {% endif %}
+         {% if entry.type == 'basic_entry_pricing' %}
+             {{ inputBasicEntry(entry,adminEditEntryRoute) }}
+         {% endif %}
+         {% if entry.type == 'bullet_entry_pricing' %} 
+            {{ inputBulletEntry(entry,adminEditEntryRoute) }}
          {% endif %}
         {% endfor %}
     </div>
