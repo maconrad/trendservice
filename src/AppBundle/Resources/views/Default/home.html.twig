@@ -39,10 +39,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    {{ home.home_brewery }}
+                    {{ home.home_laser }}
                     {# If we are the admin, add some edit buttons #}
                     {% if app.user %}
-                        <p>{{ inputEditButtons(adminGeneralTextRoute, 'home_brewery') }}</p>
+                        <p>{{ inputEditButtons(adminGeneralTextRoute, 'home_laser') }}</p>
                     {% endif %}
                 </h1>
             </div>
@@ -116,9 +116,9 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Sunnegg {{ home.all_brewery }} - 2015</p>
+                    <p>Copyright &copy; {{ home.all_laser }} - 2015</p>
                     {% if app.user %}
-                        <p>{{ inputEditButtons(adminGeneralTextRoute,'all_brewery') }}</p>
+                        <p>{{ inputEditButtons(adminGeneralTextRoute,'all_laser') }}</p>
                     {% endif %}
                 </div>
             </div>

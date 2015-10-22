@@ -39,7 +39,7 @@ class DefaultController extends Controller
         
         //Fixed parts that need to be translated for this Website
         // those were not worth an entry so we put them into general text
-        $shortWords = array("home_brewery", "all_brewery", "home_contact_us", "world");
+        $shortWords = array("home_laser", "all_laser", "home_contact_us", "world");
         $transis = $translator->getTranslations($shortWords);
         
         $em = $this->getDoctrine()->getManager();
@@ -65,9 +65,9 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/{_locale}/beers", name="beers", requirements={"_locale" = "en|de|fr|nl"})
+     * @Route("/{_locale}/engraving", name="engraving", requirements={"_locale" = "en|de|fr|nl"})
      */
-    public function beerAction($_locale)
+    public function engravingAction($_locale)
     {
         /* @var $logger Logger */
         $logger = $this->get('logger');
@@ -148,9 +148,9 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/{_locale}/event", name="event", requirements={"_locale" = "en|de|fr|nl"})
+     * @Route("/{_locale}/pricing", name="pricing", requirements={"_locale" = "en|de|fr|nl"})
      */
-    public function eventAction()
+    public function pricingAction()
     {
         /* @var $translator TranslationService */
         $translator = $this->get('my_translator');
@@ -170,9 +170,9 @@ class DefaultController extends Controller
     }
     
     /**
-     * @Route("/{_locale}/accomodation", name="accomodation", requirements={"_locale" = "en|de|fr|nl"})
+     * @Route("/{_locale}/cutting", name="cutting", requirements={"_locale" = "en|de|fr|nl"})
      */
-    public function accomodationAction()
+    public function cuttingAction()
     {
         /* @var $translator TranslationService */
         $translator = $this->get('my_translator');

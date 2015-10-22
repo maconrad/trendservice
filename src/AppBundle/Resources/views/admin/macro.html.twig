@@ -1,8 +1,10 @@
 {% macro inputEditButtons(route, id) %}
     <a href="{{ path(route, {'_locale': 'de', 'id':id}) }}" class="btn btn-default">Edit de</a>
+{% endmacro %}
+
+{% macro unused(route, id) %}
     <a href="{{ path(route, {'_locale': 'en', 'id':id}) }}" class="btn btn-default">Edit en</a>
     <a href="{{ path(route, {'_locale': 'fr', 'id':id}) }}" class="btn btn-default">Edit fr</a>
-    <a href="{{ path(route, {'_locale': 'nl', 'id':id}) }}" class="btn btn-default">Edit nl</a>
 {% endmacro %}
 
 {% macro inputList(entry) %}
