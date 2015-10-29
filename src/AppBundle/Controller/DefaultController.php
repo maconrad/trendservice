@@ -78,7 +78,7 @@ class DefaultController extends Controller
         // those were not worth an entry so we put them into general text
         //$shortWords = array("beers_are_us", "beers_description");
         //$transis = $translator->getTranslations($shortWords);
-        $transis = $translator->getAllTranslations('beers_');
+        $transis = $translator->getAllTranslations('engraving_');
         
         $em = $this->getDoctrine()->getManager();
         $entries = array();
@@ -86,12 +86,14 @@ class DefaultController extends Controller
         
         /* @var $repo EntryRepository */
         $repo = $em->getRepository('AppBundle:Entry');
-        $entries = $repo->findByType('beers_entry');
+        $entries1 = $repo->findByType('beers_entry');
+        $entries2 = $repo->findByType('thumbnail_carousel_engraving');
+        $entries = array_merge($entries1, $entries2);
         
         //$assoc = $repo->findByTypeIncludingEntryTexts('test_assoc');
         //$assoc = $repo->findByTypeIncludingEntryTextsBySubtype('test_assoc','test_sub_assoc2');
         
-        return $this->render('AppBundle:Default:beers.html.twig', array(
+        return $this->render('AppBundle:Default:engraving.html.twig', array(
                 /*'translations' => $translations,*/
                 /*'brewery' => $brewery,*/
                 'generaltranslation' => $transis,
@@ -165,7 +167,7 @@ class DefaultController extends Controller
         $entries2 = $repo->findByType('bullet_entry_pricing');
         $entries = array_merge($entries1, $entries2);
         
-       return $this->render('AppBundle:Default:event.html.twig', array(
+       return $this->render('AppBundle:Default:pricing.html.twig', array(
                 'generaltranslation' => $transis,
                 'entries' => $entries,
             ));
@@ -179,15 +181,15 @@ class DefaultController extends Controller
         /* @var $translator TranslationService */
         $translator = $this->get('my_translator');
         
-        $transis = $translator->getAllTranslations('accomodation_');
+        $transis = $translator->getAllTranslations('cutting_');
         
         $em = $this->getDoctrine()->getManager();
         
         /* @var $repo EntryRepository */
         $repo = $em->getRepository('AppBundle:Entry');
-        $entries = $repo->findByType('accomodation_entry');
+        $entries = $repo->findByType('cutting_entry');
         
-       return $this->render('AppBundle:Default:accomodation.html.twig', array(
+       return $this->render('AppBundle:Default:cutting.html.twig', array(
                 'generaltranslation' => $transis,
                 'entries' => $entries,
             ));

@@ -53,7 +53,39 @@
             <trans-unit id="16">
                 <source>nav.portraitFormat</source>
                 <target>Hochformat</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>nav.schist</source>
+                <target>Schiefer</target>
             </trans-unit>       
+            <trans-unit id="18">
+                <source>nav.metal</source>
+                <target>Metall</target>
+            </trans-unit>    
+            <trans-unit id="19">
+                <source>nav.cork</source>
+                <target>Kork</target>
+            </trans-unit>                
+            <trans-unit id="20">
+                <source>nav.leather</source>
+                <target>Leder</target>
+            </trans-unit>    
+            <trans-unit id="21">
+                <source>nav.cardboard</source>
+                <target>Karton und Papier</target>
+            </trans-unit>       
+            <trans-unit id="22">
+                <source>nav.food</source>
+                <target>Esswaren</target>
+            </trans-unit>    
+            <trans-unit id="23">
+                <source>nav.ownproduct</source>
+                <target>Eigenprodukte</target>
+            </trans-unit>                
+            <trans-unit id="24">
+                <source>nav.synthetical</source>
+                <target>Kunststoffe</target>
+            </trans-unit>   
         </body>
     </file>
 </xliff>

@@ -69,19 +69,33 @@
     
      <!-- Foto Story -->
         
-     <!-- Our Customers -->
+     <!-- Our Impressum -->
         <div class="row">
             <div class="col-lg-12 page-header">
-                <h2>{{ generaltranslation.about_customers }}</h2>
+                <h2>{{ generaltranslation.about_impressum }}</h2>
                 {% if app.user %}
-                  <p>{{ inputEditButtons(adminGeneralTextRoute, 'about_customers') }}</p>
+                  <p>{{ inputEditButtons(adminGeneralTextRoute, 'about_impressum') }}</p>
                 {% endif %}
-                <p>{{ generaltranslation.about_customers_text }}</p>
+                <p>{{ generaltranslation.about_impressum_text }}</p>
                 {% if app.user %}
-                  <p>{{ inputEditButtons(adminGeneralTextRoute, 'about_customers_text') }}</p>
+                  <p>{{ inputEditButtons(adminGeneralTextRoute, 'about_impressum_text') }}</p>
                 {% endif %}
             </div>
         </div>
+          <!-- Our AGB -->
+        <div class="row">
+            <div class="col-lg-12 page-header">
+                <h2>{{ generaltranslation.about_agb }}</h2>
+                {% if app.user %}
+                  <p>{{ inputEditButtons(adminGeneralTextRoute, 'about_agb') }}</p>
+                {% endif %}
+                <p>{{ generaltranslation.about_agb_text }}</p>
+                {% if app.user %}
+                  <p>{{ inputEditButtons(adminGeneralTextRoute, 'about_agb_text') }}</p>
+                {% endif %}
+            </div>
+        </div>
+             <!-- Our customers -->
         <div class="row">
            {% for entry in entries %}
             {% if entry.type == 'about_entry_customer' %}

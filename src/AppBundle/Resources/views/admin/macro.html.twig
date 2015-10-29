@@ -66,6 +66,65 @@
     {% endif %}
 {% endmacro %}
 
+{% macro inputThumbnailCarouselEntry(entry,adminEditEntryRoute,loopindex) %}
+    {% import _self as functions %}
+    
+    <div class="col-md-4 col-sm-6 hero-feature">
+        <div class="row thumbnail">
+            <div id="carousel-{{ loopindex }}" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    {# Outer loopindex needs to be stored because we have an inner loop#}
+                    {% set carouselIndex = loopindex %}
+                    {% for subentry in entry.subentries if subentry.type=='property_image_carousel' %}
+                     {% if loop.first %}
+                        <li data-target="#carousel-{{ carouselIndex }}" data-slide-to="0" class="active"></li>
+                     {% else %}
+                        <li data-target="#carousel-{{ carouselIndex }}" data-slide-to="{{ loop.index0 }}"></li>
+                     {% endif %}
+                    {% endfor %} 
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    {% for subentry in entry.subentries if subentry.type=='property_image_carousel' %}
+                     {% if loop.first %}
+                        <div class="item active">
+                            <img class="img-responsive" src="{{ subentry.contentnotrans }}" alt="">
+                        </div>
+                     {% else %}
+                        <div class="item">
+                            <img class="img-responsive" src="{{ subentry.contentnotrans }}" alt="">
+                        </div>
+                     {% endif %}
+                    {% endfor %} 
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-{{ carouselIndex }}" data-slide="prev">
+                    <span class="my-carouselh-icon">
+                        {{ icon('arrow-circle-left') }}
+                    </span>
+                </a>
+                <a class="right carousel-control" href="#carousel-{{ carouselIndex }}" data-slide="next">
+                    <span class="my-carouselh-icon">
+                        {{ icon('arrow-circle-right') }}
+                    </span>
+                </a>
+            </div>
+            <div class="caption">
+                <h3>{{ icon(entry.icon) }} {{ entry.title }} </h3>
+                <p>{{ entry.content }}</p>
+               {# If we are the admin, add some edit buttons #}
+               {% if app.user %}
+                <p>{{ functions.inputEditButtons(adminEditEntryRoute,entry.id) }}</p>
+               {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endmacro %}
+
 {% macro inputBulletEntry(entry,adminEditEntryRoute) %}
     {% import _self as functions %}
     
