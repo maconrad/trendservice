@@ -61,3 +61,20 @@
             <!-- /.row -->
             
          {% endif %}{# empty Twig template #}
+
+<!--------------------------------------------------------------->
+                <!-- Our customers -->
+        <div class="row">
+           {% for entry in entries %}
+            {% if entry.type == 'about_entry_customer' %}
+            <div class="col-md-2 col-sm-4 col-xs-6">
+                <h3>{{ entry.title }}</h3>
+                <img class="img-responsive customer-img" src="{{ entry.imagepath }}" alt="">
+                <h5>{{ entry.content }}</h5>
+                {% if app.user %}
+                    <p>{{ inputEditButtons(adminEditEntryRoute, entry.id) }}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+           {% endfor %}
+        </div>
