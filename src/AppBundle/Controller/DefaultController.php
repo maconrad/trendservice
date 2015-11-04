@@ -49,8 +49,9 @@ class DefaultController extends Controller
         /* @var $repo EntryRepository */
         $repo = $em->getRepository('AppBundle:Entry');
         $entries1 = $repo->findByType('home_thumbnail');
+        $entries3 = $repo->findByType('home_thumbnail_external');
         $entries2 = $repo->findByType('bullet_entry_home');
-        $entries = array_merge($entries1, $entries2);
+        $entries = array_merge($entries1, $entries2, $entries3);
         
         $assoc = $repo->findByTypeIncludingEntryTexts('test_assoc');
         //$assoc = $repo->findByTypeIncludingEntryTextsBySubtype('test_assoc','test_sub_assoc2');
