@@ -76,7 +76,10 @@
                 {% if app.user %}
                   <p>{{ inputEditButtons(adminGeneralTextRoute, 'about_impressum') }}</p>
                 {% endif %}
-                <p>{{ generaltranslation.about_impressum_text }}</p>
+                <p>
+                    {{ generaltranslation.about_impressum_text }}
+                    <a target="_blank" href="/bundles/app/pdf/Impressum.pdf">{{ icon('file-pdf-o') }}</a>
+                </p>
                 {% if app.user %}
                   <p>{{ inputEditButtons(adminGeneralTextRoute, 'about_impressum_text') }}</p>
                 {% endif %}
@@ -89,7 +92,10 @@
                 {% if app.user %}
                   <p>{{ inputEditButtons(adminGeneralTextRoute, 'about_agb') }}</p>
                 {% endif %}
-                <p>{{ generaltranslation.about_agb_text }}</p>
+                <p>
+                    {{ generaltranslation.about_agb_text }}
+                    <a target="_blank" href="/bundles/app/pdf/AGB.pdf">{{ icon('file-pdf-o') }}</a>
+                </p>
                 {% if app.user %}
                   <p>{{ inputEditButtons(adminGeneralTextRoute, 'about_agb_text') }}</p>
                 {% endif %}
